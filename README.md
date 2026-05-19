@@ -11,7 +11,7 @@
 | 이름   | GitHub                                              |
 | ------ | --------------------------------------------------- |
 | 고아라 | [Akoh-0909](https://github.com/Akoh-0909)           |
-| 김유진 |
+| 김유진 | [
 | 권민제 |
 | 이동민 |
 | 진세형 | [gugu-eightyone](https://github.com/gugu-eightyone) |
@@ -42,8 +42,11 @@
 ## 기술 스택
 
 ## 실행 방법
+1. `.env.example`을 복사하여 `.env` 생성
+2. `pip install -r requirements.txt`
+3. `streamlit run app/main.py`
 
-
+## 프로젝트 구조
 
 
 

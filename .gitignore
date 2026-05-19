@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
+*.pyo
 
 # Build artifacts
 build/
@@ -17,6 +19,7 @@ env/
 # 환경변수 (Environments / secrets — NEVER commit)
 .env
 .env.local
+.env.production
 .env.*
 !.env.example
 
@@ -28,11 +31,14 @@ env/
 .DS_Store
 Thumbs.db
 
-# 데이터/모델 (용량 큰 거)
+# 데이터/모델 (대용량)
 *.csv
-*.pkl
 *.h5
-data/
+data/raw/
+*.pkl
+*.bin
+*.pt
+*.onnx
 models/
 
 # 로그
@@ -58,3 +64,9 @@ htmlcov/
 # Tooling caches
 .ruff_cache/
 .mypy_cache/
+
+# Qdrant 로컬 스토리지
+qdrant_storage/
+
+# Docker
+*.log
