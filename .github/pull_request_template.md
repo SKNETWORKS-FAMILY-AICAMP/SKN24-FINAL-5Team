@@ -11,14 +11,16 @@ Closes #
 ## 변경 유형
 - [ ] feat: 새 기능
 - [ ] fix: 버그 수정
-- [ ] docs: 문서 (SRS, ERD, API 스펙 등)
+- [ ] docs: 문서 수정 (SRS, ERD, API 스펙 등)
 - [ ] refactor: 리팩토링
 - [ ] test: 테스트 추가/수정
-- [ ] chore/style/perf/ci: 기타 - 설정, 의존성, 코드 포맷팅 (기능 변경 없음) 등
+- [ ] chore/style/perf/ci: 기타 - 설정/환경 변경, 의존성, 코드 포맷팅 (기능 변경 없음) 등
 
 ## ✅ 체크리스트
 
 - [ ] `dev` 브랜치 기준 최신 상태에서 작업했는지 확인
+- [ ] 로컬에서 `python manage.py runserver` 정상 작동 확인
+- [ ] 마이그레이션 필요 시 `makemigrations` 파일 포함
 - [ ] `.env` 또는 API 키가 커밋에 포함되지 않았는지 확인, 신규 환경 변수는 `.env.example`에 반영
 - [ ] 커밋 메시지가 컨벤션을 따름 (`<type>: <description>`)
 - [ ] 자체 검토 완료
