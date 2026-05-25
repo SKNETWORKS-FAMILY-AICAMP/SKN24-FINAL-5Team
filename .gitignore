@@ -70,3 +70,18 @@ qdrant_storage/
 
 # Docker
 *.log
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+
+# Vector DB
+data/vectordb/
+*.chroma/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Redis
+dump.rdb
