@@ -34,7 +34,8 @@ Thumbs.db
 # 데이터/모델 (대용량)
 *.csv
 !data/processed/*.csv  
-!outputs/*.csv     
+!outputs/*.csv  
+!data_prep/*.csv   
 *.h5
 data/raw/
 data/external/
@@ -103,4 +104,4 @@ service-account*.json
 # 추가 데이터 포맷
 *.tsv
 *.parquet
-*.feather
+*.featherrequirements_full.txt
