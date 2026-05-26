@@ -33,13 +33,17 @@ Thumbs.db
 
 # 데이터/모델 (대용량)
 *.csv
+!data/processed/*.csv  
+!outputs/*.csv     
 *.h5
 data/raw/
+data/external/
 *.pkl
 *.bin
 *.pt
 *.onnx
 models/
+
 
 # 로그
 *.log
@@ -68,8 +72,7 @@ htmlcov/
 # Qdrant 로컬 스토리지
 qdrant_storage/
 
-# Docker
-*.log
+
 # Frontend
 frontend/node_modules/
 frontend/dist/
@@ -85,3 +88,19 @@ celerybeat.pid
 
 # Redis
 dump.rdb
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# 추가 secrets
+secrets.json
+credentials.json
+service-account*.json
+*.pem
+*.key
+
+# 추가 데이터 포맷
+*.tsv
+*.parquet
+*.feather
