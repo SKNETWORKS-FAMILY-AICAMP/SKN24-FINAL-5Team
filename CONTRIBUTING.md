@@ -1,6 +1,54 @@
-# 기여 가이드 (CONTRIBUTING)
+# CONTRIBUTING GUIDELINE
+
+**AI 기반 웹소설 글로벌 현지화 동시 연재 어시스턴트**
+
+> 팀명: 이세계 출판부 | SKN24 5팀
 
 > w.LiGHTER 팀 협업 규칙
+
+---
+
+## 프로젝트 구조
+
+```
+SKN24-FINAL-5Team/
+├── README.md
+├── .gitignore
+├── .env.example
+├── docker-compose.yml
+│
+├── backend/                    # Django 프로젝트
+│   ├── manage.py
+│   ├── requirements/
+│   │   ├── base.txt
+│   │   ├── dev.txt
+│   │   └── prod.txt
+│   ├── config/                 # Django 설정
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── wsgi.py
+│   │   └── asgi.py
+│   ├── accounts/               # 사용자/인증
+│   ├── works/                  # 작품/회차
+│   ├── translation/            # 번역/검수 (핵심)
+│   ├── characters/             # 캐릭터 이미지/관계도
+│   ├── guides/                 # 현지화 가이드
+│   ├── credits/                # 크레딧/결제
+│   ├── rag/                    # RAG 파이프라인
+│   └── common/                 # 공통 유틸
+│
+├── frontend/                   # React
+│   └── src/
+│
+├── data/                       # 데이터
+│   ├── raw/                    # 원본 수집 데이터
+│   ├── processed/              # JSON 정형화 결과
+│   ├── vectordb/               # 벡터DB (gitignore)
+│   └── scripts/                # 수집/전처리 스크립트
+│
+├── docs/                       # 산출물 문서
+└── notebooks/                  # 실험 노트북
+```
 
 ---
 
@@ -12,44 +60,79 @@
 - Miniconda (또는 Anaconda)
 - MySQL 8.0
 - Node.js 18+ (Frontend 작업 시)
+- Docker Desktop (선택 - MySQL/Redis 컨테이너 사용 시)
 
-### 최초 설정
+
+### 레포 클론
 
 ```bash
-# 1) 클론
 cd C:\skn24
 git clone https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN24-FINAL-5Team.git
 cd SKN24-FINAL-5Team
+```
 
-# 2) 가상환경
+### 가상환경 생성 (Anaconda Prompt에서)
+
+```bash
 conda create -n fn_env python=3.12 -y
 conda activate fn_env
+```
+### Backend 패키지 설치
 
-# 3) MySQL 클라이언트 (Windows)
-conda install -c conda-forge mysqlclient -y
-
-# 4) 패키지 설치
+```bash
 cd backend
 pip install -r requirements/dev.txt
+```
 
-# 5) 환경변수
-cd ..
+### MySQL 클라이언트 (Windows에서 mysqlclient 설치 에러 시)
+> ```bash
+> conda install -c conda-forge mysqlclient -y
+> ```
+
+
+### 환경변수 설정
+
+```bash
+# 프로젝트 루트로 이동
+cd C:\skn24\SKN24-FINAL-5Team
+
+# .env.example을 복사하여 .env 생성
 copy .env.example .env
-# .env 파일에 DB_PASSWORD, OPENAI_API_KEY 입력
+```
 
-# 6) DB 생성
+`.env` 파일을 열어서 아래 값들을 입력:
+- `DB_PASSWORD`: 본인 MySQL 비밀번호
+- `OPENAI_API_KEY`: 팀 공용 OpenAI API 키 (팀장에게 문의)
+- `SECRET_KEY`: Django 시크릿 키
+
+
+### MySQL 데이터베이스 생성
+```bash
 mysql -u root -p
-# mysql> CREATE DATABASE wlighter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-# mysql> exit;
+```
 
-# 7) 마이그레이션
+```sql
+CREATE DATABASE wlighter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+exit;
+```
+---
+
+### 마이그레이션
+
+```bash
 cd backend
 python manage.py migrate
-
-# 8) 서버 확인
-python manage.py runserver
-# http://127.0.0.1:8000/ 접속 확인 후 Ctrl+C
 ```
+
+### 서버 실행 확인
+
+```bash
+python manage.py runserver
+```
+
+# http://127.0.0.1:8000/ 접속 확인
+브라우저에서 http://127.0.0.1:8000/ 접속 → Django 환영 페이지가 보이면 성공
+확인 후 Ctrl+C
 
 ---
 
@@ -85,16 +168,16 @@ git pull origin dev
 # 2) 기능 브랜치 생성
 git checkout -b feature/내작업이름
 
-# 3) 작업 & 커밋 (여러 번 가능)
+# 3) 작업 후 커밋 (여러 번 가능)
 git add .
 git commit -m "feat: 기능 설명"
 
 # 4) 원격에 push
 git push origin feature/내작업이름
 
-# 5) GitHub에서 PR 생성 (feature/내작업이름 → dev)
+# 5) GitHub에서 PR 생성 (feature → dev)
 
-# 6) 리뷰 후 merge
+# 6) 팀원 리뷰 후 merge
 
 # 7) 로컬 정리
 git checkout dev
@@ -163,11 +246,14 @@ conda activate fn_env
 
 # Django
 cd backend
-python manage.py runserver           # 서버 실행
+python manage.py runserver           # django 서버 실행
 python manage.py makemigrations      # 마이그레이션 생성
 python manage.py migrate             # 마이그레이션 적용
-python manage.py createsuperuser     # 관리자 계정
+python manage.py createsuperuser     # 관리자 계정 생성
 python manage.py shell               # Django 쉘
+
+# 패키지 목록 저장
+pip freeze > requirements/base.txt
 
 # 코드 품질
 black .                              # 코드 포맷팅
