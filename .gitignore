@@ -104,4 +104,5 @@ service-account*.json
 # 추가 데이터 포맷
 *.tsv
 *.parquet
-*.featherrequirements_full.txt
+*.feather
+requirements_full.txt
