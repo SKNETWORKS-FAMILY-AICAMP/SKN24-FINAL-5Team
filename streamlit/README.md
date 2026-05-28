@@ -64,28 +64,6 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## 환경변수 설정
-
-`.env.example`을 복사해 `.env` 파일을 만든 뒤 본인 테스트 키를 입력합니다.
-
-```powershell
-copy .env.example .env
-```
-
-```env
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4.1-mini
-OPENAI_IMAGE_MODEL=gpt-image-2
-
-TOSS_CLIENT_KEY=
-TOSS_SECRET_KEY=
-
-STREAMLIT_BASE_URL=http://localhost:8501
-CHECKOUT_BASE_URL=http://localhost:5500/checkout.html
-```
-
-> `.env`는 API 키와 결제 시크릿 키가 들어갈 수 있으므로 깃에 올리지 않습니다.
-
 ## 실행
 
 결제 테스트 페이지까지 사용할 경우 터미널을 2개 열어 실행합니다.
