@@ -1,25 +1,64 @@
 # w.LiGHTER
-
-## 1. 팀 소개
-
-### 팀명: 이세계출판부
-
 > AI 기반 웹소설 글로벌 현지화 동시 연재 어시스턴트
 
-### 팀원
+# 1. 팀 소개
 
-| 이름   | GitHub                                              |
-| ------ | --------------------------------------------------- |
-| 고아라 | [Akoh-0909](https://github.com/Akoh-0909)           |
-| 김유진 | [shortcut-2](https://github.com/shortcut-2)         |
-| 권민제 | [min3802](https://github.com/min3802)               |
-| 이동민 | [LeeDongMin0115](https://github.com/LeeDongMin0115) |
-| 진세형 | [gugu-eightyone](https://github.com/gugu-eightyone) |
-| 최현진 | [lifeisgoodlg](https://github.com/lifeisgoodlg)     |
+## 팀명: 이세계출판부
 
+## 팀원
+<table>
+  <tr>
+    <th width="200">고아라</th>
+    <th width="200">김유진</th>
+    <th width="200">권민제</th>
+    <th width="200">이동민</th>
+    <th width="200">진세형</th>
+    <th width="200">최현진</th>
+  </tr>
+  <tr>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="ar" src="https://github.com/user-attachments/assets/5ed48616-a116-4d83-b608-c65069e9c458" />
+    </td>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="yj" src="https://github.com/user-attachments/assets/8d1c3ced-1672-4fda-aff2-72f70022b269" />
+    </td>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="mj" src="https://github.com/user-attachments/assets/e72d6377-8f53-440e-ab09-d25d0fbf6a62" />
+    </td>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="dm" src="https://github.com/user-attachments/assets/2b4d2db9-4b38-4f97-b9ec-0c81805b383e" />
+    </td>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="sh" src="https://github.com/user-attachments/assets/fb4c15db-101a-4a80-bc11-78a035cd7b4b" />
+    </td>
+    <td align="center" width="200">
+      <img width="180" height="180" alt="hj" src="https://github.com/user-attachments/assets/24caf068-35c2-4498-9b1e-6272ae8b398d" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="200">
+      <a href="https://github.com/Akoh-0909"><img src="https://img.shields.io/badge/Akoh--0909-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/shortcut-2"><img src="https://img.shields.io/badge/shortcut--2-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/min3802"><img src="https://img.shields.io/badge/min3802-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/LeeDongMin0115"><img src="https://img.shields.io/badge/LeeDongMin0115-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/gugu-eightyone"><img src="https://img.shields.io/badge/gugu--eightyone-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/lifeisgoodlg"><img src="https://img.shields.io/badge/lifeisgoodlg-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+    </td>
+  </tr>
+</table>
 ---
 
-## 2. 프로젝트 개요
+# 2. 프로젝트 개요
 
 **w.LiGHTER**는 해외 진출을 준비하는 국내 웹소설 작가를 위한 **AI 기반 웹소설 글로벌 현지화 동시 연재 어시스턴트**입니다.
 
@@ -29,23 +68,22 @@
 
 ---
 
-## 3. 프로젝트 배경
+# 3. 프로젝트 배경
 
 2024년 국내 웹소설 시장 규모는 약 1조 3,500억 원으로, 2022년(1조 390억 원) 대비 약 30% 성장했습니다.  
 로맨스 판타지 웹소설 <상수리나무 아래>의 영문 단행본이 뉴욕타임즈 베스트셀러 7위에 오르는 등, 한국 웹소설의 글로벌 성과도 가시화되고 있습니다.
 
 웹소설 수출 국가는 중국 40%, 미국 16%, 일본·대만 각 12%로, 이러한 시장 분포와 한국 콘텐츠 수요를 종합해 **중국·미국·일본·태국** 4개국을 1차 타겟으로 선정하였습니다.
 
----
 
-### 3-1. 문제 정의
+## 3-1. 문제 정의
 
 개인 웹소설 작가가 해외 진출을 시도할 때, 번역 이후 문제를 발견하면 **원문 수정 → 재번역 → 현지 감수**까지 전 과정을 다시 밟아야 합니다.
 
 - 번역본의 문화적 리스크를 걸러낼 수단이 없습니다.
 - 전문 에이전시 없이 개인 작가가 현지화를 혼자 감당하기 어렵습니다.
 
-### 3-2. 해결 방안 
+## 3-2. 해결 방안 
 
 > **"고치는 건 빠를수록 싸다"**
 
@@ -60,10 +98,7 @@
 | **캐릭터 이미지 생성** | 원문 분석을 통한 캐릭터 특성이 반영된 이미지 생성 | 
 | **관계도 생성** | 원문 분석을 통해 파악한 캐릭터들 간의 관계도 이미지 생성 |
 
----
-
-### 3-3. 서비스 포지셔닝
-
+## 3-3. 서비스 포지셔닝
 일반 번역기와 전문 에이전시 사이에서,  
 **w.LiGHTER**는 *"개인 작가가 직접 쓰는 사전 검수형 현지화 SaaS"* 라는 유일한 포지션을 점유합니다.
 
@@ -81,8 +116,6 @@
 
 > ○ 완전 지원 / △ 부분 지원 또는 우회 가능 / ✕ 미지원
 
----
-
 ## 3-4. 기대 효과
 
 **작가 관점**
@@ -93,23 +126,13 @@
 - 번역·현지화 등 기타 업무에서 벗어나 창작 집중도 향상
 - 캐릭터·호칭·세계관 용어의 회차·언어 간 일관성 확보
 
----
+# 4. 기술 스택
 
-## 4. 기술 스택
-
-
-
----
-
-## 5. 시스템 아키텍처
-
+# 5. 시스템 아키텍처
 <img width="1648" height="1102" alt="시스템 아키텍처" src="https://github.com/user-attachments/assets/c908fa65-051b-45c1-aae5-3c10865fa17e" />
 
 
 ---
-
----
-
 ## 실행 방법
 1. `.env.example`을 복사하여 `.env` 생성
 2. `pip install -r requirements.txt`
