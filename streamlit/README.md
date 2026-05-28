@@ -15,14 +15,23 @@
 
 ## 권장 폴더 구조
 
+```## 권장 폴더 구조
+
 ```text
-wlighter_streamlit_workflow_v1/
+streamlit/
  ├─ app.py
  ├─ checkout.html
+ ├─ logo.png
  ├─ requirements.txt
  ├─ README.md
  ├─ .env.example
  ├─ .gitignore
+ ├─ prompts/
+ │  ├─ BASE_REVIEW_PROMPT.md
+ │  ├─ CULTURAL_CONSTRAINTS_US.md
+ │  ├─ CULTURAL_CONSTRAINTS_CN.md
+ │  ├─ CULTURAL_CONSTRAINTS_JP.md
+ │  └─ CULTURAL_CONSTRAINTS_TH.md
  └─ data/
     ├─ rag/
     │  ├─ jp_idiom_references_enriched.json
@@ -30,11 +39,22 @@ wlighter_streamlit_workflow_v1/
     │  ├─ us_idiom_references_enriched.json
     │  └─ zh_idiom_references_enriched.json
     └─ localization_guide/
-       └─ data/
-          ├─ local_data/
+       ├─ localization_orchestrator.py
+       ├─ tavily_localization_agent.py
+       └─ raw/
+          ├─ tavily_localization_report_US_smoke.md
+          ├─ us_webnovel_localization_guide_goal.html
           ├─ localization_reports/
+          ├─ local_data/
+          │  ├─ usa_tapas_content_guidelines.md
+          │  ├─ usa_wattpad_genre.md
+          │  ├─ usa_wattpad_rules.md
+          │  ├─ usa_webnovel_guidelines.md
+          │  ├─ code/
+          │  └─ culture_report/
           └─ tavily_cache/
 ```
+
 
 ## 설치
 
@@ -81,19 +101,3 @@ python -m http.server 5500
 ```powershell
 python -m streamlit run app.py
 ```
-
-## 데이터 파일 안내
-
-- `data/rag/`는 국가별 번역/검수 참고자료를 읽는 위치입니다.
-- `data/localization_guide/`는 현지화 가이드 리포트 생성에 쓰는 참고자료 위치입니다.
-- 원본 수집 데이터 전체를 깃에 올리기 어렵다면 샘플 데이터와 출처 문서만 별도로 정리하는 방식을 권장합니다.
-
-## 수정 반영 내용
-
-- 프로젝트 루트 기준 경로를 `BASE_DIR`, `DATA_DIR`로 정리했습니다.
-- `data/rag`, `data/localization_guide` 경로를 절대 경로가 아닌 프로젝트 상대 경로로 정리했습니다.
-- `openai` 패키지를 `requirements.txt`에 추가했습니다.
-- `.env` 대신 `.env.example`만 포함하도록 정리했습니다.
-- optional 파이프라인 모듈이 없어도 앱이 바로 깨지지 않도록 처리했습니다.
-- `localization_guide.zip` 자동 압축 해제 시 안전한 경로만 풀리도록 보완했습니다.
-- `app.py` 문법 컴파일 검사를 통과하도록 확인했습니다.
