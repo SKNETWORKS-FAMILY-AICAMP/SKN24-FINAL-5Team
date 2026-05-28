@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미국 웹소설 현지화 가이드 — 현대 로맨스</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #5B4FCF;
+    --purple-light: #EBE9FB;
+    --purple-mid: #A99FE8;
+    --teal: #0F8A6A;
+    --teal-light: #E0F4EE;
+    --amber: #B86B0B;
+    --amber-light: #FDF0DC;
+    --red: #C0392B;
+    --red-light: #FCECEA;
+    --gray: #F5F4F1;
+    --border: #E2E0DA;
+    --text: #1C1B18;
+    --text-muted: #6B6860;
+    --text-light: #9B9890;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text);
+    background: #FAFAF8;
+    line-height: 1.7;
+    padding: 48px 32px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* COVER */
+  .cover {
+    border: 1.5px solid var(--text);
+    padding: 48px 40px 40px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cover h1 em {
+    font-style: italic;
+    color: var(--purple);
+  }
+  .cover-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .cover-sub span::before { content: '—'; margin-right: 6px; color: var(--purple-mid); }
+  .cover-deco {
+    position: absolute;
+    bottom: 20px;
+    right: 28px;
+    font-size: 64px;
+    opacity: 0.07;
+    font-family: 'DM Serif Display', serif;
+    line-height: 1;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 44px; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--text);
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--purple-mid);
+    line-height: 1;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+  /* CARD */
+  .card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* LIST */
+  ul.check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  ul.check-list li {
+    font-size: 13.5px;
+    color: var(--text);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+  ul.check-list li .icon { flex-shrink: 0; margin-top: 2px; font-size: 13px; }
+  .do   { color: var(--teal); }
+  .dont { color: var(--red); }
+  .warn { color: var(--amber); }
+  .info { color: var(--purple); }
+
+  /* ALERT */
+  .alert {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-warn  { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+  .alert-info  { background: var(--purple-light); color: var(--purple); border-left: 3px solid var(--purple); }
+  .alert-danger { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+  .alert-icon { flex-shrink: 0; font-weight: 500; }
+
+  /* TAG */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-teal   { background: var(--teal-light);   color: var(--teal); }
+  .tag-amber  { background: var(--amber-light);  color: var(--amber); }
+
+  /* PLATFORM TABLE */
+  table.platform-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  table.platform-table th {
+    background: var(--gray);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  table.platform-table td {
+    padding: 8px 12px;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  table.platform-table tr:last-child td { border-bottom: none; }
+  table.platform-table td:first-child { font-weight: 500; white-space: nowrap; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-weight: 500;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge-blue   { background: #E6F1FB; color: #185FA5; }
+  .badge-green  { background: var(--teal-light); color: var(--teal); }
+  .badge-amber  { background: var(--amber-light); color: var(--amber); }
+
+  /* DIVIDER */
+  .gap { margin-bottom: 12px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding-top: 16px;
+    font-size: 12px;
+    color: var(--text-light);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .query-list, .source-list { margin: 10px 0 22px 18px; color: var(--text); }
+  .query-list li, .source-list li { margin-bottom: 12px; }
+  .source-list a { display: block; color: var(--purple); word-break: break-all; font-size: 12px; margin: 4px 0; }
+  .source-list p { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+  .source-meta { display: block; color: var(--text-light); font-size: 11px; margin-top: 2px; }
+  .evidence-title { margin-top: 18px; }
+  .wide li { margin-bottom: 10px; }
+  @media print {
+    body { padding: 24px; background: #fff; }
+    .section { break-inside: avoid; }
+    a { color: #1C1B18; text-decoration: none; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="cover-label">Localization Guide · Korean Web Novel → United States Market</p>
+  <h1>미국 웹소설<br><em>현지화 가이드</em></h1>
+  <div class="cover-sub">
+    <span>장르: 현대 로맨스</span>
+    <span>근거: Tavily 공개 웹 검색</span>
+    <span>합성: gpt-4.1-mini</span>
+    <span>생성: 2026-05-27 00:52</span>
+  </div>
+  <div class="cover-deco">♡</div>
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">작성 방향</span>
+  </div>
+  <div class="grid-2">
+
+    <div class="card">
+      <p class="card-title">포인트 1</p>
+      <p>미국 현대 로맨스 독자를 겨냥할 때는 공개 웹 근거상 반복 노출되는 장르 키워드와 트로프를 초반 소개·태그·챕터 훅에 명확히 반영하는 편이 안전합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 2</p>
+      <p>검색 근거가 플랫폼 내부 전체 데이터가 아니므로, 수치 단정 대신 ‘공개 웹에서 관찰되는 경향’으로 표현해야 합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 3</p>
+      <p>감정선과 관계 진전 속도를 명확히 설계합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 4</p>
+      <p>동의(consent), 권력 불균형, 독성 관계의 미화 여부를 점검합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 5</p>
+      <p>트로프 태그를 제목·소개·마케팅 문구에 일관되게 반영합니다.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">시장/독자 신호</span>
+  </div>
+  <div class="grid-2">
+
+    <div class="card">
+      <p class="card-title">포인트 1</p>
+      <p>BookTok/TikTok 관련 근거가 관찰되어 짧은 훅·트로프 중심 마케팅 문구가 중요합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 2</p>
+      <p>Wattpad 관련 결과가 포함되어 태그·장르 분류·연재형 독자 유입을 고려할 수 있습니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 3</p>
+      <p>로맨스/로맨타지 트로프가 반복 노출되므로 관계 구도와 감정선 키워드를 전면에 배치합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 4</p>
+      <p>판타지·성장형 키워드가 보이면 세계관 규칙, 성장 보상, 회차별 목표를 빠르게 제시합니다.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">문화 주의사항</span>
+  </div>
+  
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠</span>
+    <div>
+      <strong>해석 주의</strong><br>
+      Tavily 결과는 공개 웹 검색 근거입니다. 플랫폼 전체 통계나 내부 랭킹으로 단정하지 않습니다.
+    </div>
+  </div>
+  <ul class="check-list wide">
+    <li><span class="icon warn">!</span> 한국식 호칭, 위계, 가족/직장 문화는 직역보다 장면 맥락 안에서 기능을 설명하거나 현지 독자에게 익숙한 관계 표현으로 보완합니다.</li>
+    <li><span class="icon warn">!</span> 현지 독자가 민감하게 받아들일 수 있는 성별 고정관념, 외모 기준, 권력 불균형 로맨스는 미화되지 않게 조정합니다.</li>
+    <li><span class="icon warn">!</span> 공개 웹 근거는 전체 플랫폼 통계나 내부 순위, 모든 독자층을 대표하지 않습니다.</li>
+    <li><span class="icon warn">!</span> 시장 수치나 성장률은 추정치이며, 과장 없이 ‘관찰되는 경향’으로 표현해야 합니다.</li>
+    <li><span class="icon warn">!</span> 문화적 민감도 차이로 인해 직역 시 오해가 발생할 수 있으니 주의가 필요합니다.</li>
+    <li><span class="icon warn">!</span> 플랫폼별 정책과 독자 특성은 수시로 변동하므로 최신 정보 확인이 필수입니다.</li>
+  </ul>
+
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">플랫폼 &amp; 마케팅</span>
+  </div>
+  
+  <div class="grid-2">
+
+    <div class="card">
+      <p class="card-title">포인트 1</p>
+      <p>검색 근거에 노출된 플랫폼/채널: Wattpad, Tapas, Radish, Kindle/Vella, Kakao 계열.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 2</p>
+      <p>각 플랫폼의 최신 업로드 규정, 성인물 정책, 태그 체계를 업로드 직전에 별도 확인합니다.</p>
+    </div>
+
+    <div class="card">
+      <p class="card-title">포인트 3</p>
+      <p>플랫폼명은 추천 채널 후보이지, 해당 플랫폼 내부 데이터 분석 결과로 표현하지 않습니다.</p>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-purple">Tavily 근거 기반</span><span class="tag tag-purple">미국</span><span class="tag tag-purple">현대 로맨스</span><span class="tag tag-purple">BookTok</span><span class="tag tag-purple">Wattpad</span><span class="tag tag-purple">Romance</span><span class="tag tag-purple">Fantasy</span><span class="tag tag-purple">BL</span>
+  </div>
+
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Tavily 검색 근거</span>
+  </div>
+  
+  <div class="alert alert-info">
+    <span class="alert-icon">ℹ</span>
+    <div>아래 근거는 Tavily 검색 결과의 URL/title/snippet 기반입니다. PDF 변환 시에도 출처 URL을 유지하세요.</div>
+  </div>
+  <p class="card-title">검색 쿼리</p>
+  <ul class="query-list"><li><code>US webnovel online fiction reader market 현대 로맨스 trend 2026 localization</code></li><li><code>United States cultural sensitivity localization Korean web novel 현대 로맨스</code></li><li><code>United States webnovel platform publishing marketing 현대 로맨스 Wattpad Tapas</code></li><li><code>United States webnovel 현대 로맨스 romance tropes reader preferences 2026</code></li><li><code>webnovel reader preferences romance fantasy BookTok Wattpad Tapas Radish 현대 로맨스 romance trope trend 2026</code></li><li><code>United States BookTok Wattpad romance webnovel trend 현대 로맨스</code></li></ul>
+  <p class="card-title evidence-title">상위 근거</p>
+  <ol class="source-list">
+    <li>
+      <strong>1. Web Novel Market Size, Revenue &amp; Growth Trends 2035</strong>
+      <span class="source-meta">lane=market · score=0.704</span>
+      <a href="https://www.wiseguyreports.com/reports/web-novel-market">https://www.wiseguyreports.com/reports/web-novel-market</a>
+      <p>| Key Market Dynamics | digital content consumption trends, increasing mobile accessibility, diverse reader demographics, rise of self-publishing platforms, globalization of storytelling | | Market Forecast Units | USD Billion | | Key Companies Profiled | R...</p>
+    </li>
+    <li>
+      <strong>2. The First BookTok Trend Roundup of 2026 - by Alyssa Morris</strong>
+      <span class="source-meta">lane=genre · score=0.538</span>
+      <a href="https://romancingthephone.substack.com/p/the-first-booktok-trend-roundup-of">https://romancingthephone.substack.com/p/the-first-booktok-trend-roundup-of</a>
+      <p># The First BookTok Trend Roundup of 2026 ### If you guessed it&#x27;s mostly Heated Rivalry you wouldn&#x27;t be wrong Alyssa Morris Jan 09, 2026 managed to squeeze in one last trip to my favorite place to read in 2025 Welcome back to Romancing the Phone, and welcom...</p>
+    </li>
+    <li>
+      <strong>3. Top 10 Global Digital Platforms for Web Novels and Creative Writing Content – ALL THE FACTS ABOUT THE WRITING WORLD</strong>
+      <span class="source-meta">lane=platform · score=0.508</span>
+      <a href="https://writersimranthakur.com/2026/02/08/top-10-global-digital-platforms-for-web-novels-and-creative-writing-content">https://writersimranthakur.com/2026/02/08/top-10-global-digital-platforms-for-web-novels-and-creative-writing-content</a>
+      <p>Key Benefits: 1. WattPad give access to a massive global audience with mobile-first reach. 2. More focused on community interaction. Here, writers receive feedback directly from readers and make changes. 3. It provides editorial support, marketing help, and...</p>
+    </li>
+    <li>
+      <strong>4. AI Web Novel Plot: How to Build Compelling Web Fiction with AI (May 2026)</strong>
+      <span class="source-meta">lane=genre · score=0.400</span>
+      <a href="https://www.jenova.ai/en/resources/ai-web-novel-plot-202605">https://www.jenova.ai/en/resources/ai-web-novel-plot-202605</a>
+      <p>Genre trend research — identify what&#x27;s popular, what&#x27;s oversaturated, and what gaps exist in your web novel&#x27;s genre World-building research — pull historical, cultural, and scientific details that add authenticity to your settings Reader sentiment analysis ...</p>
+    </li>
+    <li>
+      <strong>5. Korean Web Novels in English: How to Translate Korean Web Novels Using AI in 2026 | Lexilit</strong>
+      <span class="source-meta">lane=culture · score=0.263</span>
+      <a href="https://lexilit.com/korean-web-novels-in-english">https://lexilit.com/korean-web-novels-in-english</a>
+      <p>### Korean Web Novel Conventions Korean web novels follow distinct genre conventions that differ significantly from Western fiction. Understanding these is crucial for accurate translation: Rofan (로판, Romance Fantasy): Female-led stories featuring reincarna...</p>
+    </li>
+    <li>
+      <strong>6. World Wide Web novels: Stories Found Only Behind a Screen</strong>
+      <span class="source-meta">lane=genre · score=0.229</span>
+      <a href="https://www.cellmatesmag.co.uk/post/world-wide-webnovels-stories-found-only-behind-a-screen">https://www.cellmatesmag.co.uk/post/world-wide-webnovels-stories-found-only-behind-a-screen</a>
+      <p>Webnovel genres One of the differences between traditional print novels and web novels is the way their way of labelling genres. For example, instead of categorising with single words like ‘romance’ or ‘fantasy’, the community of web novel writers/readers t...</p>
+    </li>
+  </ol>
+
+</div>
+
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">실행 체크리스트</span>
+  </div>
+  <ul class="check-list wide">
+    <li><span class="icon do">✓</span> 초기 기획 단계에서 미국 독자 대상 현대 로맨스 트로프와 감정선을 명확히 설정합니다.</li>
+    <li><span class="icon do">✓</span> 소개글과 태그에 인기 트로프를 반영하여 BookTok 등 SNS 마케팅에 활용합니다.</li>
+    <li><span class="icon do">✓</span> Wattpad 등 연재 플랫폼 특성을 고려해 독자 피드백 반영 및 연재 주기 계획을 수립합니다.</li>
+    <li><span class="icon do">✓</span> 문화적 차이를 고려해 한국식 표현은 현지화하며, 민감한 관계 묘사는 신중히 다룹니다.</li>
+    <li><span class="icon do">✓</span> 출판 전 각 플랫폼별 최신 가이드라인과 정책을 점검하여 업로드 준비를 완료합니다.</li>
+  </ul>
+</div>
+
+
+<footer>
+  <span>미국 웹소설 현지화 가이드 · 현대 로맨스</span>
+  <span>Tavily evidence · gpt-4.1-mini synthesis</span>
+</footer>
+
+</body>
+</html>

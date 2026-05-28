@@ -1,0 +1,39 @@
+{
+  "query": "BookTok fantasy romance webnovel trends US readers",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://apps.apple.com/sb/app/goodnovel-booktok-stories/id1503128132",
+      "title": "‎GoodNovel - Booktok, Stories App - App Store",
+      "content": "- Professional Author Team Creates Best Novel\nBook Genres\nGoodNovel contains many web novel genres, from urban books to supernatural books, and is deeply loved by the majority of our readers.\nSo many book genres await you to explore on GoodNovel App.\nAnyone can find their favorite web novel on GoodNovel. Start reading web novel without delay!\nHottest Web Novels\nIf you’re looking for any of these web novels below, then you’ll love GoodNovel for sure.\n-「Most Read 5 Web Fictions 2024」\n-「Most Romantic Top 5 Love Story Web Fictions」\n-「Top 5 Novels of All Web Fiction Platforms」\n-「Best Sellers of Web Fictions 2024 - Love & Romance」\n-「Top 10 Must Read Romantic Web Fictions for Romantic Book Lovers」\nTrending web novel at GoodNovel:\n- 「When His Eyes Opened」By Simple Silence [...] GoodNovel- A Must Have App For Web Novels！\n- Book Genres: Romance, Mystery, Fantasy, Western, Sci-fi, Fan-fic\n- Become An Author to REALIZE YOUR WRITING DREAM\nCollection of Best Books & Hottest New Reads in Every Genre!\nGoodNovel has collected popular web novels and books, provides you with the latest chapters of the highest quality. This is a must-have book app for the majority of web novel lovers.\nStart reading your favorite book, by downloading the GoodNovel app！\n- No.1 Book Reading Platform for Novel Lovers\n- Numerous of Book Genres for Choosing Freely\n- Hundreds of web novel Read More Than 1,000,000+ Times\n- Professional Author Team Creates Best Novel\nBook Genres [...] # GoodNovel - Booktok, Stories\n\nTop Trending Romance Novels\n\nFree · In-App Purchases · Designed for iPad",
+      "score": 0.5752307,
+      "raw_content": null
+    },
+    {
+      "url": "https://www.tiktok.com/@theanimemen/video/7622766379929849102",
+      "title": "TikTok",
+      "content": "TikTok\nTikTok\n\n## watch nowWatch now\n\nwatch now\nTikTok\nTikTok\n\nDear Users,\n\nWe regret to inform you that we have discontinued operating TikTok in Hong Kong.\n\nThank you for the time you have spent with us on the platform and for giving us the opportunity to bring a little bit of joy into your life.\n\nThe TikTok Team",
+      "score": 0.011842832,
+      "raw_content": null
+    }
+  ],
+  "response_time": 2.71,
+  "usage": {
+    "credits": 2
+  },
+  "request_id": "d3df7cff-48e0-4e2e-b0ff-453fda28211d",
+  "_cached_at": "2026-05-26T15:25:18.516322+00:00",
+  "_params": {
+    "query": "BookTok fantasy romance webnovel trends US readers",
+    "country": "united states",
+    "topic": "general",
+    "search_depth": "advanced",
+    "time_range": "year",
+    "max_results": 2,
+    "include_answer": false,
+    "include_raw_content": false,
+    "include_usage": true
+  }
+}

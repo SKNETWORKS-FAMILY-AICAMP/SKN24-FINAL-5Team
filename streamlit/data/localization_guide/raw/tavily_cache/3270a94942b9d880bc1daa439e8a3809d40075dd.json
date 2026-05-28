@@ -1,0 +1,32 @@
+{
+  "query": "United States BookTok Wattpad romance webnovel trend 현대 로맨스",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://www.cellmatesmag.co.uk/post/world-wide-webnovels-stories-found-only-behind-a-screen",
+      "title": "World Wide Web novels: Stories Found Only Behind a Screen",
+      "content": "Webnovel genres\n\nOne of the differences between traditional print novels and web novels is the way their way of labelling genres.\n\nFor example, instead of categorising with single words like ‘romance’ or ‘fantasy’, the community of web novel writers/readers tend to rely on real time sharing of preferences and clichés.\n\nSo main genres including ‘alternative history’, ‘game fantasy’, ‘martial arts' and ‘modern talents’, are just a handful in the long list. There are also detailed sub-genres, which are just more specific to what you might be looking for in a novel, such as 'zombie', 'evil woman possession', apocalypse water' and 'card battle'/\n\nTherefore, you can always find something that will be your cup of tea.\n\nAuthors and readers galore [...] Authors and readers galore\n\nIf you are aiming to write fiction, web novels provide more flexibility of content and greater publishing opportunities. Sites such as Webnovel, Wattpad, Royal Roadand Scribblehubhost works, and if your story becomes the talk of the active web novel community, it can grow into a very profitable hobby, since many of these sites have dedicated readers willing to pay for every chapter or for a subscription to get newly released chapters earlier than anyone else. [...] Sir Walter Scott's first major novel, Waverley (1814)\n\nWeb novels (stories published originally on websites) are in fact quite new in the timeline, with the earliest known form coming from China around the early 2000s. A culmination of Japanese and Korean online literature culture also contributed greatly. As an Anonymous user stated in a WebNovel Q&A: “Online novels first appeared in 1997... In the year 2000, online novels became popular in China and gradually developed into a huge industry.”\n\nThis became an upward trend as technology developed, and translations of these novels were spread across Asia and eventually into the West, for example, Sylver Seekerand Beware of Chicken (written by a Canadian).\n\nWebnovel genres",
+      "score": 0.22919038,
+      "raw_content": null
+    }
+  ],
+  "response_time": 2.8,
+  "usage": {
+    "credits": 2
+  },
+  "request_id": "416fd2db-daab-461e-b05e-ad5e186c4986",
+  "_cached_at": "2026-05-26T15:47:19.183961+00:00",
+  "_params": {
+    "query": "United States BookTok Wattpad romance webnovel trend 현대 로맨스",
+    "country": "united states",
+    "topic": "general",
+    "search_depth": "advanced",
+    "time_range": "year",
+    "max_results": 1,
+    "include_answer": false,
+    "include_raw_content": false,
+    "include_usage": true
+  }
+}

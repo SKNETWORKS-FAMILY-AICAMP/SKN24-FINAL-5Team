@@ -1,0 +1,39 @@
+{
+  "query": "webnovel tropes readers",
+  "follow_up_questions": null,
+  "answer": null,
+  "images": [],
+  "results": [
+    {
+      "url": "https://www.reddit.com/r/RomanceBooks/comments/1lwbsof/books_where_hero_helps_heroine_through_first_heat",
+      "title": "Books Where Hero Helps Heroine Through First Heat - Reddit",
+      "content": "I'm looking for books with a very specific trope. Specifically, I'm after stories where the heroine goes into her first heat and is almost delirious with",
+      "score": 0.074157745,
+      "raw_content": null
+    },
+    {
+      "url": "https://www.reddit.com/r/RomanceBooks/comments/1l2rck1/favorite_books_youve_read_in_2025",
+      "title": "Favorite books you've read in 2025?! : r/RomanceBooks - Reddit",
+      "content": "This book, book lovers and funny story made me understand the EH hype. Another favourite is { 1% of you by Michelle Gross}. The tropes are normally not my",
+      "score": 0.07061741,
+      "raw_content": null
+    }
+  ],
+  "response_time": 2.37,
+  "usage": {
+    "credits": 2
+  },
+  "request_id": "eb1cbae8-f8bf-4ed8-9787-416111a575a4",
+  "_cached_at": "2026-05-26T15:25:24.245763+00:00",
+  "_params": {
+    "query": "site:reddit.com/r/RomanceBooks webnovel tropes readers",
+    "country": "united states",
+    "topic": "general",
+    "search_depth": "advanced",
+    "time_range": "year",
+    "max_results": 2,
+    "include_answer": false,
+    "include_raw_content": false,
+    "include_usage": true
+  }
+}
