@@ -104,13 +104,13 @@
 
 | 비교 항목 | **w.LiGHTER** | Alandal<br>(AI 번역 엔진) | ChatGPT | 일반 기계번역<br>(파파고/구글) | 전문 번역<br>에이전시 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| 대상 | 개인 작가 | B2B<br>(자체 IP) | 일반 사용자 | 일반 사용자 | 출판사·CP사 |
+| 대상 | 개인 작가 | B2B<br> | 일반 사용자 | 일반 사용자 | 출판사·CP사 |
 | 4개 언어<br>현지화 번역 | ○ | △<br>(수작업으로 QA) | △<br>(수동 프롬프트) | △<br>(번역만 / 현지화 ✕) | ○ |
 | 타겟 국가<br>가이드라인 | ○ | △<br>(B2B계약 개별협의) | ✕ | ✕ | ○ |
 | 설정 일관성 검증 | ○ | △<br>(용어집 설정 한정) | △<br>(수동 프롬프트) | ✕ | △<br>(전문가 의존) |
 | 웹소설 장르 특화 | ○<br>(타겟국가 특화) | ○ | ✕ | ✕ | △<br>(전문가 의존) |
 | 문화권 리스크 탐지<br>및 문화 검수 | ○ | △<br>(수작업으로 QA) | ✕ | ✕ | △<br>(전문가 의존) |
-| 개인 작가 접근성 | ○ | ✕<br>(B2B) | △<br>(프롬프트 학습/설계 필요) | ○ | △<br>(고비용) |
+| 개인 작가 접근성 | ○ | ✕<br>(B2B) | △<br>(프롬프트 학습 /<br>설계 필요) | ○ | △<br>(고비용) |
 | 단가 | 크레딧<br>(저비용) | 높음<br>(B2B견적) | 무료/저가 | 무료/저가 | 고가 |
 | 통합 Pipeline 제공<br>(작가 워크플로우) | ○ | ○ | ✕ | ✕ | △<br>(수작업 통합) |
 
@@ -127,6 +127,19 @@
 - 캐릭터·호칭·세계관 용어의 회차·언어 간 일관성 확보
 
 # 4. 기술 스택
+| 분류 | 기술/도구 |
+|---|---|
+| Language | ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) |
+| Framework & API | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) |
+| VectorDB | ![ChromaDB](https://img.shields.io/badge/ChromaDB-5A31F4?style=for-the-badge&logo=databricks&logoColor=white) |
+| Demo & UI | ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) |
+| Collaboration | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white) |
+
+| 분류 | 모델 |
+|---|---|
+| Embedding | ![intfloat/multilingual-e5-large](https://img.shields.io/badge/intfloat%2Fmultilingual--e5--large-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white) |
+| LLM | ![gpt-4.1-mini](https://img.shields.io/badge/gpt--4.1--mini-412991?style=for-the-badge&logo=openai&logoColor=white) |
+| Image Generation | ![gpt-image-2](https://img.shields.io/badge/gpt--image--2-412991?style=for-the-badge&logo=openai&logoColor=white) |
 
 # 5. 시스템 아키텍처
 <img width="1648" height="1102" alt="시스템 아키텍처" src="https://github.com/user-attachments/assets/c908fa65-051b-45c1-aae5-3c10865fa17e" />
