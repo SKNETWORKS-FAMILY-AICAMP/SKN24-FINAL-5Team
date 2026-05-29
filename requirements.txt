@@ -1,0 +1,10 @@
+# === 공통 / 데이터 파이프라인 (data_prep) ===
+kiwipiepy==0.23.1
+pandas==3.0.3
+openai==2.38.0
+python-dotenv==1.2.2
+
+# === 백엔드 (Django) ===
+Django==6.0.5
+django-environ==0.13.0
+mysqlclient==2.2.8
