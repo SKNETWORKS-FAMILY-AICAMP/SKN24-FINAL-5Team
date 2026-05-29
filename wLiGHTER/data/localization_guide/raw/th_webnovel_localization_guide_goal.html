@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>태국 웹소설 현지화 가이드 — 현대 로맨스</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #5B4FCF;
+    --purple-light: #EBE9FB;
+    --purple-mid: #A99FE8;
+    --teal: #0F8A6A;
+    --teal-light: #E0F4EE;
+    --amber: #B86B0B;
+    --amber-light: #FDF0DC;
+    --red: #C0392B;
+    --red-light: #FCECEA;
+    --gray: #F5F4F1;
+    --border: #E2E0DA;
+    --text: #1C1B18;
+    --text-muted: #6B6860;
+    --text-light: #9B9890;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text);
+    background: #FAFAF8;
+    line-height: 1.7;
+    padding: 48px 32px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .cover {
+    border: 1.5px solid var(--text);
+    padding: 48px 40px 40px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .cover h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cover h1 em {
+    font-style: italic;
+    color: var(--purple);
+  }
+  .cover-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .cover-sub span::before { content: '—'; margin-right: 6px; color: var(--purple-mid); }
+  .cover-deco {
+    position: absolute;
+    bottom: 20px;
+    right: 28px;
+    font-size: 64px;
+    opacity: 0.07;
+    font-family: 'DM Serif Display', serif;
+    line-height: 1;
+  }
+
+  .section { margin-bottom: 44px; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--text);
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--purple-mid);
+    line-height: 1;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+  .card {
+    background: #fff;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  ul.check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  ul.check-list li {
+    font-size: 13.5px;
+    color: var(--text);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+  ul.check-list li .icon { flex-shrink: 0; margin-top: 2px; font-size: 13px; }
+  .do   { color: var(--teal); }
+  .dont { color: var(--red); }
+  .warn { color: var(--amber); }
+  .info { color: var(--purple); }
+
+  .alert {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-warn  { background: var(--amber-light); color: var(--amber); border-left: 3px solid var(--amber); }
+  .alert-info  { background: var(--purple-light); color: var(--purple); border-left: 3px solid var(--purple); }
+  .alert-danger { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+  .alert-icon { flex-shrink: 0; font-weight: 500; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .tag-purple { background: var(--purple-light); color: var(--purple); }
+  .tag-teal   { background: var(--teal-light);   color: var(--teal); }
+  .tag-amber  { background: var(--amber-light);  color: var(--amber); }
+
+  table.platform-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  table.platform-table th {
+    background: var(--gray);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  table.platform-table td {
+    padding: 8px 12px;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+  table.platform-table tr:last-child td { border-bottom: none; }
+  table.platform-table td:first-child { font-weight: 500; white-space: nowrap; }
+
+  .badge {
+    display: inline-block;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-weight: 500;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge-blue   { background: #E6F1FB; color: #185FA5; }
+  .badge-green  { background: var(--teal-light); color: var(--teal); }
+  .badge-amber  { background: var(--amber-light); color: var(--amber); }
+
+  .gap { margin-bottom: 12px; }
+
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding-top: 16px;
+    font-size: 12px;
+    color: var(--text-light);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <p class="cover-label">Localization Guide · Korean Web Novel → Thai Market</p>
+  <h1>태국 웹소설<br><em>현지화 가이드</em></h1>
+  <div class="cover-sub">
+    <span>현대 로맨스 장르</span>
+    <span>2025–2026 데모 기준</span>
+    <span>플랫폼 · 문화 · 감정선 조정</span>
+  </div>
+  <div class="cover-deco">✦</div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">작성 방향</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <p class="card-title">회차 구조</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 모바일 독서 기준으로 짧은 문단과 빠른 장면 전환 유지</li>
+        <li><span class="icon do">✓</span> 회차 끝에는 감정적 여운 또는 다음 사건 예고 배치</li>
+        <li><span class="icon do">✓</span> 초반 3화 안에 주인공의 목표와 관계 갈등을 명확히 제시</li>
+        <li><span class="icon dont">✗</span> 배경 설명을 길게 늘어놓기보다 대화와 행동으로 전달</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">로맨스 감정선</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 체면, 배려, 눈치가 드러나는 관계 변화에 강점</li>
+        <li><span class="icon do">✓</span> 갈등 후 사과·화해·관계 회복 과정을 분명히 보여주기</li>
+        <li><span class="icon do">✓</span> 강한 감정 표현보다 부드러운 말투와 간접 표현 활용</li>
+        <li><span class="icon dont">✗</span> 일방적 집착이나 강압적 구애를 로맨틱하게 포장하지 않기</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <p class="card-title">문체 & 호흡</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 태국어 번역 시 대화문은 짧고 부드럽게 유지</li>
+        <li><span class="icon do">✓</span> 감정 묘사는 직접 단정보다 분위기와 행동으로 보완</li>
+        <li><span class="icon do">✓</span> 이름·호칭은 관계와 위계를 고려해 자연스럽게 조정</li>
+        <li><span class="icon dont">✗</span> 한국식 직역투, 긴 수식어, 과한 높임말 구조는 지양</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">캐릭터 설정</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 가족, 친구, 공동체와의 관계를 캐릭터 매력으로 활용</li>
+        <li><span class="icon do">✓</span> 주인공의 책임감과 배려심을 행동으로 보여주기</li>
+        <li><span class="icon warn">!</span> 신분·나이·권력 차이가 큰 관계는 동의와 선택권을 보완</li>
+        <li><span class="icon dont">✗</span> 특정 지역·계층·외모를 희화화하는 묘사는 피하기</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tags">
+    <span class="tag tag-purple">부드러운 감정선</span>
+    <span class="tag tag-purple">관계 회복 서사</span>
+    <span class="tag tag-amber">체면·위계 고려</span>
+    <span class="tag tag-teal">모바일 짧은 호흡</span>
+    <span class="tag tag-teal">K-콘텐츠 친화</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">문화 주의사항</span>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-icon">⚠</span>
+    <span>태국 독자는 관계의 예의, 체면, 종교·왕실 관련 표현에 민감할 수 있습니다. 작품의 장면 목적과 무관한 자극적 표현은 완화하는 편이 안전합니다.</span>
+  </div>
+
+  <div class="grid-2 gap">
+    <div class="card">
+      <p class="card-title">주의할 표현</p>
+      <ul class="check-list">
+        <li><span class="icon dont">✗</span> 왕실·국가 상징을 조롱하거나 가볍게 소비하는 표현</li>
+        <li><span class="icon dont">✗</span> 불교·사원·승려를 희화화하는 장면</li>
+        <li><span class="icon dont">✗</span> 외모, 피부색, 계층을 낮춰 부르는 농담</li>
+        <li><span class="icon dont">✗</span> 공개적인 망신 주기, 강압적 명령을 매력으로 포장</li>
+        <li><span class="icon warn">!</span> 과격한 욕설은 상황에 따라 부드러운 감정 표현으로 치환</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">살리면 좋은 요소</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 가족을 향한 책임감과 보호 본능</li>
+        <li><span class="icon do">✓</span> 직접 고백보다 배려와 행동으로 드러나는 호감</li>
+        <li><span class="icon do">✓</span> 친구·동료가 관계를 부드럽게 연결하는 장면</li>
+        <li><span class="icon do">✓</span> K-드라마식 로맨스 분위기와 감정적 클리프행어</li>
+        <li><span class="icon do">✓</span> 갈등 이후 상대의 체면을 지켜주는 해결 방식</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card gap">
+    <p class="card-title">문화 번역 필요 항목</p>
+    <ul class="check-list">
+      <li><span class="icon warn">!</span> <strong>호칭</strong> — 오빠·언니·선배 같은 관계 호칭은 맥락 설명 또는 자연스러운 태국어 호칭으로 조정</li>
+      <li><span class="icon warn">!</span> <strong>학교·직장 위계</strong> — 선후배·상사 관계는 강압보다 예의와 거리감 중심으로 표현</li>
+      <li><span class="icon warn">!</span> <strong>술자리 문화</strong> — 강권, 회식 압박은 부정적으로 읽힐 수 있어 완화 필요</li>
+      <li><span class="icon warn">!</span> <strong>가족 갈등</strong> — 직접적인 모욕보다 체면 손상과 관계 회복 가능성을 함께 제시</li>
+      <li><span class="icon info">→</span> <strong>K-콘텐츠 분위기</strong>는 강점으로 활용하되, 현지 독자에게 낯선 관습은 짧게 보완</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">플랫폼 참고</span>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">ℹ</span>
+    <span>아래 내용은 데모용 플랫폼 참고표입니다. 실제 서비스에서는 각 플랫폼의 최신 운영 정책과 콘텐츠 가이드라인을 별도로 확인해야 합니다.</span>
+  </div>
+
+  <table class="platform-table">
+    <thead>
+      <tr>
+        <th>플랫폼/채널</th>
+        <th>주 독자층</th>
+        <th>적합 장르</th>
+        <th>운영 포인트</th>
+        <th>주의사항</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ReadAWrite <span class="badge badge-green">웹소설 친화</span></td>
+        <td>10–30대</td>
+        <td>로맨스, BL, 판타지</td>
+        <td>모바일 회차형 소비에 적합. 표지와 태그 중요.</td>
+        <td>연령 등급과 민감 소재 표기 필요.</td>
+      </tr>
+      <tr>
+        <td>Dek-D <span class="badge badge-blue">청소년층 강함</span></td>
+        <td>10–20대</td>
+        <td>학원물, 로맨스, 판타지</td>
+        <td>초반 몰입과 댓글 반응 관리가 중요.</td>
+        <td>학교·청소년 소재의 폭력/성적 묘사 주의.</td>
+      </tr>
+      <tr>
+        <td>Fictionlog <span class="badge badge-amber">디지털 출판</span></td>
+        <td>20–40대</td>
+        <td>로맨스, 판타지, 드라마</td>
+        <td>완성도 높은 문장과 장르 명확성이 중요.</td>
+        <td>유료 전환 전 무료 분량 설계 필요.</td>
+      </tr>
+      <tr>
+        <td>Webtoon/Novel 커뮤니티</td>
+        <td>팬덤 독자</td>
+        <td>K-로맨스, 회귀물, 판타지</td>
+        <td>K-드라마 감성과 캐릭터 이미지 활용 가능.</td>
+        <td>한국 문화 요소는 매력 포인트와 설명 균형 필요.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-danger">
+    <span class="alert-icon">✕</span>
+    <span><strong>공통 주의:</strong> 왕실 모독, 종교 비하, 혐오 표현, 미성년자 성적 묘사, 자해 조장, 불법행위 미화는 보수적으로 검토해야 합니다.</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">현지화 팁</span>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <p class="card-title">번역 품질</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 직역보다 말투의 부드러움과 관계성을 우선</li>
+        <li><span class="icon do">✓</span> 한국식 욕설은 강도를 낮춰 감정 표현으로 전환</li>
+        <li><span class="icon do">✓</span> 음식·지명·학교 문화는 짧은 보충 설명 활용</li>
+        <li><span class="icon info">→</span> 태국어 대화문은 자연스러운 높임과 친밀도 구분 필요</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">연재 전략</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> 짧고 일정한 업로드 주기 유지</li>
+        <li><span class="icon do">✓</span> 회차 제목에 감정 사건 또는 갈등 포인트 반영</li>
+        <li><span class="icon do">✓</span> 첫 회차에서 관계 구도와 장르 약속을 빠르게 제시</li>
+        <li><span class="icon info">→</span> 댓글 반응을 보고 호칭·말투를 조정하는 방식 유효</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">마케팅 & 태그</p>
+      <ul class="check-list">
+        <li><span class="icon do">✓</span> K-Drama, Korean romance, slow burn 감성 활용</li>
+        <li><span class="icon do">✓</span> 캐릭터 이미지와 관계도는 진입 장벽을 낮추는 보조 자료</li>
+        <li><span class="icon do">✓</span> 표지·썸네일은 부드러운 색감과 인물 감정 중심으로 구성</li>
+        <li><span class="icon do">✓</span> 팬덤형 독자를 겨냥한 캐릭터 소개 카드 활용</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>태국 웹소설 현지화 가이드 · 현대 로맨스</span>
+  <span>데모 데이터 · 발표용 초안</span>
+</footer>
+
+</body>
+</html>
