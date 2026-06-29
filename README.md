@@ -2,6 +2,8 @@
 > AI 기반 웹소설 현지화 번역 어시스턴트
 >
 > **Write, Light, Lighter** — 당신의 이야기, 세계의 언어로 빛내다.
+> <img width="2844" height="1350" alt="image" src="https://github.com/user-attachments/assets/8974ca52-def9-4f4e-9d62-9c354bef23f6" />
+
 
 # 1. 팀 소개
 
