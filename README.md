@@ -1,4 +1,4 @@
-# w.LiGHTER
+<img width="1122" height="842" alt="아키텍처" src="https://github.com/user-attachments/assets/8bd89601-2d46-4dda-848d-630547ff7c6d" /># w.LiGHTER
 > AI 기반 웹소설 현지화 번역 어시스턴트
 >
 > **Write, Light, Lighter** — 당신의 이야기, 세계의 언어로 빛내다.
@@ -134,9 +134,11 @@
 
 # 6. 시스템 아키텍처
 
-(사진 추가)
+<img width="1122" height="842" alt="아키텍처" src="https://github.com/user-attachments/assets/7a0b0141-b9f5-4ba0-9a8d-9c5b62420afa" />
 
 ### 번역 파이프라인
+
+<img width="3480" height="2300" alt="번역_파이프라인_구조도" src="https://github.com/user-attachments/assets/d93f8cac-fdab-42cd-be38-1e0f0db8c78b" />
 
 번역 요청 → **작품 용어집 조회**(설정 일관성) → 초벌 번역 → **검수 4종 병렬**(말투·문체·문화·용어) → 검수 취합 → 최종 번역 → **한글 잔류 점검·수리**(최대 2회) → **한국 문화 미주**(한국 문화 RAG / Qdrant) → 결과 패키징 → 응답(최종 번역 + 리포트)
 
