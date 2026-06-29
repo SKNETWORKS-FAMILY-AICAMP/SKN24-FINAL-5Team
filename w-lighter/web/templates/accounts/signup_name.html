@@ -1,0 +1,72 @@
+{% extends 'layouts/base_landing.html' %}
+{% load static %}
+
+{% block title %}회원가입 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="signup-page">
+  <section class="signup-shell" aria-labelledby="signup-name-title">
+    <aside class="signup-brand-panel" aria-label="w.LiGHTER 서비스 소개">
+      <a class="signup-brand-logo" aria-label="w.LiGHTER 홈">
+        <img src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+      </a>
+      <div class="signup-dot-pattern dot-pattern-top" aria-hidden="true"></div>
+      <div class="signup-dot-pattern dot-pattern-bottom" aria-hidden="true"></div>
+      <div class="signup-brand-copy">
+        <p>AI 기반 웹소설 현지화 번역 어시스턴트</p>
+        <h2>당신의 이야기,<br><span class="marker-highlight">세계의 언어로</span> 빛내다</h2>
+        <span class="signup-brand-description">현지화 가이드, 번역부터 검수, 표지 이미지, 관계도 생성까지—<br>작가님의 창작과 글로벌 진출을 한곳에서 지원합니다.</span>
+      </div>
+    </aside>
+
+    <div class="signup-content-panel">
+      <ol class="signup-stepper" aria-label="회원가입 단계">
+        <li class="signup-step is-complete">
+          <span class="step-marker" aria-hidden="true">✓</span>
+          <span>약관 동의</span>
+        </li>
+        <li class="step-divider" aria-hidden="true"></li>
+        <li class="signup-step is-active">
+          <span class="step-marker">2</span>
+          <span>닉네임 설정</span>
+        </li>
+      </ol>
+
+      <form class="signup-form-card signup-name-card" method="post" action="{% url 'accounts:signup_name' %}">
+        {% csrf_token %}
+        <h1 id="signup-name-title">닉네임 설정</h1>
+        <p class="signup-description">환영합니다, 작가님. w.LiGHTER에서 사용할 닉네임을 입력해 주세요.<br>나중에 설정에서 변경할 수 있어요.</p>
+
+        <div class="nickname-field" data-nickname-field>
+          <label class="sr-only" for="nickname">닉네임</label>
+          <div class="nickname-input-wrap">
+            <input id="nickname" class="nickname-input" type="text" name="nickname" maxlength="10" placeholder="닉네임을 입력해 주세요" autocomplete="nickname" data-nickname-input>
+            <span class="nickname-count"><span data-nickname-count>0</span>/10</span>
+          </div>
+          <p class="nickname-help" data-nickname-help>
+            <span class="help-icon" aria-hidden="true">i</span>
+            최소 2자 이상, 최대 10자 이하<br>
+            공백 없이 한글, 영어, 숫자만 가능해요
+          </p>
+        </div>
+
+        {% if signup_error %}
+          <p class="signup-error-message">{{ signup_error }}</p>
+        {% endif %}
+
+        <button class="signup-primary-button" type="submit" data-start-signup disabled>시작하기</button>
+      </form>
+
+      <p class="signup-copyright">© 2026 w.LiGHTER. All rights reserved.</p>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'layouts/base_landing.html' %}
+{% load static %}
+
+{% block title %}회원가입 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="signup-page">
+  <section class="signup-shell" aria-labelledby="signup-title">
+    <aside class="signup-brand-panel" aria-label="w.LiGHTER 서비스 소개">
+      <a class="signup-brand-logo" aria-label="w.LiGHTER 홈">
+        <img src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+      </a>
+      <div class="signup-dot-pattern dot-pattern-top" aria-hidden="true"></div>
+      <div class="signup-dot-pattern dot-pattern-bottom" aria-hidden="true"></div>
+      <div class="signup-brand-copy">
+        <p>AI 기반 웹소설 현지화 번역 어시스턴트</p>
+        <h2>당신의 이야기,<br><span class="marker-highlight">세계의 언어로</span> 빛내다</h2>
+        <span class="signup-brand-description">현지화 가이드, 번역부터 검수, 표지 이미지, 관계도 생성까지—<br>작가님의 창작과 글로벌 진출을 한곳에서 지원합니다.</span>
+      </div>
+    </aside>
+
+    <div class="signup-content-panel">
+      <ol class="signup-stepper" aria-label="회원가입 단계">
+        <li class="signup-step is-active">
+          <span class="step-marker">1</span>
+          <span>약관 동의</span>
+        </li>
+        <li class="step-divider" aria-hidden="true"></li>
+        <li class="signup-step">
+          <span class="step-marker">2</span>
+          <span>닉네임 설정</span>
+        </li>
+      </ol>
+
+      <form class="signup-form-card" method="post" action="{% url 'accounts:signup_terms' %}">
+        {% csrf_token %}
+        <h1 id="signup-title">서비스 이용약관</h1>
+        <p class="signup-description">w.LiGHTER를 원활하게 이용하기 위해 다음 필수 약관에 동의해 주시기 바랍니다.</p>
+
+        <div class="agreement-box" data-agreement-box>
+          <label class="agreement-row agreement-all">
+            <input class="agreement-checkbox" type="checkbox" data-agree-all>
+            <span class="checkbox-visual" aria-hidden="true"></span>
+            <span>전체 동의</span>
+          </label>
+
+          <div class="agreement-row">
+            <label class="agreement-label">
+              <input class="agreement-checkbox" type="checkbox" name="terms_agreed" data-agree-required="terms">
+              <span class="checkbox-visual" aria-hidden="true"></span>
+              <span>[필수] 이용약관 동의</span>
+            </label>
+            <button class="agreement-detail-button" type="button" data-open-policy="terms">상세 보기</button>
+          </div>
+
+          <div class="agreement-row">
+            <label class="agreement-label">
+              <input class="agreement-checkbox" type="checkbox" name="privacy_agreed" data-agree-required="privacy">
+              <span class="checkbox-visual" aria-hidden="true"></span>
+              <span>[필수] 개인정보 수집 및 활용 동의</span>
+            </label>
+            <button class="agreement-detail-button" type="button" data-open-policy="privacy">상세 보기</button>
+          </div>
+        </div>
+
+        {% if signup_error %}
+          <p class="signup-error-message">{{ signup_error }}</p>
+        {% endif %}
+
+        <button class="signup-primary-button" type="submit" data-next-terms disabled>다음으로</button>
+      </form>
+
+      <p class="signup-copyright">© 2026 w.LiGHTER. All rights reserved.</p>
+    </div>
+
+    <section class="signup-policy-panel" data-policy-panel hidden aria-labelledby="policy-title">
+      <div class="policy-header">
+        <h2 id="policy-title" data-policy-title>서비스 이용약관</h2>
+        <button class="policy-close-button" type="button" data-close-policy aria-label="약관 상세 닫기">×</button>
+      </div>
+
+      <div class="policy-scroll" tabindex="0">
+        <article class="policy-document" data-policy-document="terms">
+          {% include 'pages/_terms_content.html' %}
+        </article>
+
+        <article class="policy-document" data-policy-document="privacy" hidden>
+          {% include 'pages/_privacy_content.html' %}
+        </article>
+      </div>
+
+      <button class="signup-primary-button policy-agree-button" type="button" data-agree-policy>동의하고 닫기</button>
+    </section>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

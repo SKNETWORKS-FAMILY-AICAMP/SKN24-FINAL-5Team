@@ -1,0 +1,60 @@
+{% extends 'layouts/base_landing.html' %}
+{% load static %}
+
+{% block title %}개인정보 처리방침 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/legal.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="legal-page" id="top">
+  <header class="legal-gnb" aria-label="개인정보 처리방침 페이지 내비게이션">
+    <a class="legal-logo" href="{% url 'pages:landing' %}" aria-label="w.LiGHTER 홈">
+      <img src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+    </a>
+    <nav class="legal-nav" aria-label="랜딩 주요 섹션">
+      <a href="{% url 'pages:landing' %}#top">서비스 소개</a>
+      <a href="{% url 'pages:landing' %}#service">주요 기능</a>
+      <a href="{% url 'pages:landing' %}#faq">FAQ</a>
+    </nav>
+    {% if user.is_authenticated %}
+    <a class="legal-login-button" href="{% url 'works:library' %}">내 서재로 가기</a>
+    {% else %}
+    <a class="legal-login-button" href="{% url 'pages:landing' %}#top">로그인 / 시작하기</a>
+    {% endif %}
+  </header>
+
+  <main class="legal-main">
+    <article class="legal-container legal-document" aria-labelledby="privacy-title">
+      <h1 id="privacy-title">개인정보 처리방침</h1>
+      {% include 'pages/_privacy_content.html' %}
+    </article>
+  </main>
+
+  <footer class="legal-footer">
+    <div class="legal-container footer-grid">
+      <div class="footer-brand">
+        <a class="legal-logo footer-logo" href="{% url 'pages:landing' %}">
+          <img src="{% static 'images/landing/logo-footer.svg' %}" alt="w.LiGHTER">
+        </a>
+      </div>
+      <div class="footer-column">
+        <strong>팀</strong>
+        <span>이세계 출판부</span>
+        <span>SKN24 · 5Team</span>
+      </div>
+      <div class="footer-column">
+        <strong>약관</strong>
+        <a href="{% url 'pages:terms' %}">서비스 이용약관</a>
+        <a href="{% url 'pages:privacy' %}" aria-current="page">개인정보 처리방침</a>
+      </div>
+      <div class="footer-column">
+        <strong>문의하기</strong>
+        <a href="mailto:with.lighter@gmail.com">with.lighter@gmail.com</a>
+      </div>
+    </div>
+    <div class="legal-container footer-bottom">© 2026 w.LiGHTER. All rights reserved.</div>
+  </footer>
+</div>
+{% endblock %}

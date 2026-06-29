@@ -1,0 +1,138 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+
+{% block title %}회차 등록 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/episode_register.css' %}?v=toastsize-20260624-1">
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title">회차 등록</h1>
+      <p class="page-desc">파일을 업로드하거나 직접 입력해, 회차를 등록해 보세요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="/credits/charge" class="credit-chip">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon" id="profileBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="ep-reg-panel">
+
+    <div class="ep-reg-tabs">
+      <button class="ep-reg-tab active" data-tab="upload"><span>파일 업로드</span></button>
+      <button class="ep-reg-tab" data-tab="direct"><span>직접 입력</span></button>
+    </div>
+
+    <!-- ===== 파일 업로드 탭 ===== -->
+    <div class="ep-reg-pane active" id="tab-upload">
+      <p class="ep-reg-desc">
+        파일을 첨부한 후, 회차 정보를 입력하고 화살표를 누르면 등록 대기열에 추가됩니다.<br>
+        대기열에 추가된 상태에서 회차 등록을 누르면 시스템에 반영됩니다.
+      </p>
+
+      <div class="ep-reg-upload-row">
+
+        <!-- 파일 첨부 -->
+        <div class="ep-reg-col">
+          <h3 class="ep-reg-col-title">파일 첨부</h3>
+          <div class="ep-reg-dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept=".txt,.docx" multiple hidden>
+            <svg class="ep-reg-upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p class="ep-reg-drop-main">클릭해서 파일 첨부</p>
+            <p class="ep-reg-drop-sub">txt, docx 파일만 지원</p>
+            <p class="ep-reg-drop-sub">파일당 최대 1MB</p>
+          </div>
+          <div class="ep-reg-file-list" id="fileList" style="display:none;"></div>
+        </div>
+
+        <!-- 화살표 버튼 -->
+        <button class="ep-reg-arrow-btn" id="addToQueueBtn" title="대기열에 추가">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13 17 18 12 13 7"/>
+            <polyline points="6 17 11 12 6 7"/>
+          </svg>
+        </button>
+
+        <!-- 등록 대기 -->
+        <div class="ep-reg-col">
+          <h3 class="ep-reg-col-title">등록 대기</h3>
+          <div class="ep-reg-queue" id="queueList">
+            <p class="ep-reg-queue-empty">아직 추가된 회차가 없어요.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 회차 정보 입력 -->
+      <div class="ep-reg-fields">
+        <div class="ep-reg-field-row">
+          <label class="ep-reg-label">회차 번호 <span class="required">*</span></label>
+          <div class="ep-reg-number-wrap">
+            <input class="ep-reg-input ep-reg-number-input" type="number" min="1" placeholder="숫자 입력" id="epNumber">
+            <span class="ep-reg-number-suffix">화</span>
+          </div>
+        </div>
+        <div class="ep-reg-field-row">
+          <label class="ep-reg-label">회차 제목 <span class="required">*</span></label>
+          <input class="ep-reg-input ep-reg-title-input" type="text" placeholder="공백 포함 최대 30자" maxlength="30" id="epTitle">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 직접 입력 탭 ===== -->
+    <div class="ep-reg-pane" id="tab-direct">
+
+      <div class="ep-reg-direct-top-row">
+        <div class="ep-reg-direct-title-group">
+          <label class="ep-reg-label">회차 제목 <span class="required">*</span></label>
+          <div class="ep-reg-input-counter-wrap">
+            <input class="ep-reg-input ep-reg-title-input-d" type="text" maxlength="30" id="directTitle">
+            <span class="ep-reg-inner-counter" id="directTitleCounter">0/30</span>
+          </div>
+        </div>
+        <div class="ep-reg-direct-number-group">
+          <label class="ep-reg-label">회차 번호 <span class="required">*</span></label>
+          <div class="ep-reg-number-wrap">
+            <input class="ep-reg-input ep-reg-number-input" type="number" min="1" id="directNumber" placeholder="숫자 입력">
+            <span class="ep-reg-number-suffix">화</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ep-reg-content-section">
+        <h3 class="ep-reg-col-title">원문 <span class="required">*</span></h3>
+        <div class="ep-reg-textarea-wrap">
+          <textarea class="ep-reg-input ep-reg-content-input" maxlength="8000" id="directContent"></textarea>
+          <div class="ep-reg-counter-bar">
+            <span class="ep-reg-content-counter" id="directContentCounter">0/8,000</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ep-reg-footer">
+      <button class="ep-reg-submit-btn" id="epRegSubmitBtn"
+        data-work-pk="{{ work.work_id }}"
+        data-episode-count="{{ episode_count }}">회차 등록</button>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+{{ existing_numbers|json_script:"existingNumbers" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="{% static 'js/episode_register.js' %}?v=duptoast-20260624-2"></script>
+{% endblock %}

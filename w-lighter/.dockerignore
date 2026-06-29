@@ -1,0 +1,17 @@
+﻿.git
+.env
+*.pem
+*.key
+
+web/db.sqlite3
+web/staticfiles
+web/media
+
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+venv/
+.venv/
+django_env/

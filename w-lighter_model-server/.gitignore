@@ -1,0 +1,45 @@
+# secrets / env
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# 모델/데이터 캐시 (런타임 생성, 커밋 X)
+qdrant_local/
+data/embedding_cache/
+.omc/
+.claude/
+
+# 로컬 DB(영속화) + 일회성 스모크 스크립트 (커밋 X)
+*.db
+wlighter_local.db
+model_server/smoke_*.py
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 프로젝트 참고 파일
+CLAUDE.md
+project_docs/
+docs/TROUBLESHOOTING.md
+
+# aws / key files
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+
+# generated outputs
+generated/
+*.log
+
+# external/team reference copy; do not commit directly
+model_server/domains/guide_tavily/

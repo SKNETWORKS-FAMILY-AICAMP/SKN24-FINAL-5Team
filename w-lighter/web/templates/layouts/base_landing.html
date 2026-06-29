@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}w.LiGHTER{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/sidebar/logo_short.svg' %}">
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/common.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="landing-body">
+  {% block content %}{% endblock %}
+
+  {% if messages %}
+  <div id="landingToastWrap">
+    {% for message in messages %}
+    <div class="landing-toast {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  <style>
+    #landingToastWrap {
+      position: fixed; top: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 9999; display: flex; flex-direction: column; gap: 10px; align-items: center;
+    }
+    .landing-toast {
+      padding: 14px 24px; border-radius: 50px;
+      background: #fff; border: 1px solid rgba(207,195,251,0.7);
+      box-shadow: 0 4px 24px rgba(110,91,184,0.13);
+      font-size: 14px; font-weight: 500; color: #3d2f8a;
+      white-space: nowrap;
+      animation: toastIn .25s ease;
+    }
+    .landing-toast.error { border-color: #ffb3b3; color: #c0392b; }
+    @keyframes toastIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+  </style>
+  <script>
+    setTimeout(() => { const w = document.getElementById('landingToastWrap'); if(w) w.style.opacity='0'; }, 4000);
+    setTimeout(() => { const w = document.getElementById('landingToastWrap'); if(w) w.remove(); }, 4300);
+  </script>
+  {% endif %}
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

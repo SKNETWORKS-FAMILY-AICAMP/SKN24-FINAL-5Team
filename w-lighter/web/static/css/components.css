@@ -1,0 +1,160 @@
+/* =============================================
+   공통 UI 컴포넌트 (토스트 / 확인 모달)
+   - base_app.html에서 전역 로드
+   - JS: static/js/components.js 의 window.AppUI 사용
+   ============================================= */
+
+/* ---------- 크레딧 부족 모달 (번역 페이지 tr-credit-* 와 동일) ---------- */
+.tr-credit-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(45, 36, 64, 0.2);
+}
+.tr-credit-modal-backdrop.open { display: flex; }
+.tr-credit-modal {
+  display: none;
+  width: 100%;
+  max-width: 400px;
+  min-height: 220px;
+  padding: 24px 40px 28px;
+  border: 1px solid rgba(207, 195, 251, 0.78);
+  border-radius: 26px;
+  background: var(--color-surface, #fff);
+  box-shadow: 0 0 0 8px rgba(207, 195, 251, 0.18), 0 14px 40px rgba(110, 91, 184, 0.18);
+}
+.tr-credit-modal.active { display: block; }
+.tr-credit-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border: 1.5px solid var(--color-primary-border, #cfc3fb);
+  border-radius: 50%;
+  background: var(--color-primary-soft, #f3eeff);
+  color: var(--color-primary, #6e5bb8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+.tr-credit-icon-limit { font-size: 0; }
+.tr-credit-modal-title {
+  margin: 0 0 8px;
+  color: var(--color-text, #2d2440);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+.tr-credit-modal-desc {
+  margin: 0;
+  color: var(--color-text-muted, #8a8a99);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.tr-credit-btn {
+  height: 40px;
+  border-radius: var(--radius-pill, 999px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  transition: opacity .15s, transform .15s;
+}
+.tr-credit-btn:hover { opacity: 0.9; }
+.tr-credit-btn-charge {
+  width: 100%;
+  margin-top: 24px;
+  border: 1.5px solid var(--color-primary-border, #cfc3fb);
+  background: var(--color-primary-soft, #f3eeff);
+  color: var(--color-primary, #6e5bb8);
+  text-decoration: none;
+}
+
+/* ---------- 토스트 ---------- */
+.app-toast {
+  display: none;
+  position: fixed;
+  top: 32px;
+  left: calc(var(--sidebar-w, 88px) + (100vw - var(--sidebar-w, 88px)) / 2);
+  transform: translateX(-50%);
+  z-index: 2000;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid #F8D7F5;
+  background: #F9E9FA;
+  color: #6E5BB8;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+}
+.app-toast.show { display: flex; }
+
+/* ---------- 확인 모달 ---------- */
+.app-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(40, 30, 60, 0.35);
+  z-index: 1900;
+}
+.app-modal-backdrop.open { display: block; }
+
+.app-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: calc(100vw - 32px);
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 40px 28px;
+  box-shadow: 0 20px 50px rgba(60, 40, 100, 0.25);
+  z-index: 1901;
+}
+.app-modal.open { display: block; }
+
+.app-modal-title {
+  margin: 0 0 8px;
+  color: var(--color-text, #2d2440);
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.app-modal-desc {
+  margin: 0 0 24px;
+  color: var(--color-text-muted, #6E638C);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.app-modal-desc strong { color: var(--color-primary, #7c3aed); font-weight: 700; }
+
+.app-modal-actions { display: flex; gap: 12px; }
+.app-modal-btn {
+  flex: 1;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+.app-modal-btn.cancel { background: #F2F2F7; color: #2D2440; }
+.app-modal-btn.cancel:hover { background: #E8E8F0; }
+.app-modal-btn.confirm { background: #6E5BB8; color: #fff; }
+.app-modal-btn.confirm:hover { background: #5f4aa6; }
