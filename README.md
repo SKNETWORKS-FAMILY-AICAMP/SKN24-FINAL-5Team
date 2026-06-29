@@ -1,4 +1,4 @@
-<img width="1122" height="842" alt="아키텍처" src="https://github.com/user-attachments/assets/8bd89601-2d46-4dda-848d-630547ff7c6d" /># w.LiGHTER
+# w.LiGHTER
 > AI 기반 웹소설 현지화 번역 어시스턴트
 >
 > **Write, Light, Lighter** — 당신의 이야기, 세계의 언어로 빛내다.
