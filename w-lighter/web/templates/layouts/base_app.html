@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}w.LiGHTER{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/sidebar/logo_short.svg' %}">
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/common.css' %}?v=sidebar-20260628-6">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}?v=modalsize-20260624-6">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="sidebar-open">
+
+  <!-- Sidebar -->
+  {% include 'includes/sidebar.html' %}
+
+  <!-- Profile Dropdown -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <a class="profile-dropdown-item" href="#" id="openUserInfoBtn">정보 수정</a>
+    <a class="profile-dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
+  </div>
+
+  <!-- 사용자 정보 모달 -->
+  <div class="ui-backdrop" id="userInfoBackdrop"></div>
+  <div class="ui-modal" id="userInfoModal" role="dialog" aria-modal="true"
+       data-update-url="{% url 'accounts:update_nickname' %}"
+       data-csrf="{{ csrf_token }}">
+    <button class="ui-modal-close" id="userInfoClose" aria-label="닫기">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <h2 class="ui-modal-title">사용자 정보</h2>
+
+    <div class="ui-info-rows">
+
+      <!-- 닉네임 -->
+      <div class="ui-info-row">
+        <span class="ui-info-label">닉네임</span>
+        <div class="ui-info-value-wrap">
+          <!-- 보기 모드 -->
+          <span class="ui-info-value" id="nicknameDisplay">{{ request.user.nickname }}</span>
+          <!-- 수정 모드 -->
+          <div class="ui-input-group" id="nicknameEditWrap" style="display:none">
+            <input class="ui-nickname-input" id="nicknameInput" type="text" maxlength="10" value="{{ request.user.nickname }}">
+            <div class="ui-input-error" id="nicknameError" style="display:none">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff2d55"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12" stroke="#fff" stroke-width="2"/><circle cx="12" cy="16" r="1" fill="#fff"/></svg>
+              <span id="nicknameErrorMsg"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이메일 -->
+      <div class="ui-info-row">
+        <span class="ui-info-label">이메일</span>
+        <span class="ui-info-value">{{ request.user.email }}</span>
+      </div>
+
+      <!-- 로그인 연동자 -->
+      <div class="ui-info-row">
+        <span class="ui-info-label">로그인 연동자</span>
+        <span class="ui-info-value">{{ request.user.get_oauth_provider_display }}</span>
+      </div>
+
+    </div>
+
+    <!-- 버튼 -->
+    <div class="ui-modal-action">
+      <button class="ui-action-btn" id="userInfoActionBtn">수정</button>
+    </div>
+
+    <!-- 탈퇴하기 -->
+    <div class="ui-modal-footer">
+      <a href="{% url 'accounts:withdraw' %}" class="ui-withdraw-link">탈퇴하기</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="app-main">
+    <div class="page-container">
+      {% block content %}{% endblock %}
+    </div>
+    {% block full_content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'js/common.js' %}?v=sidebar-persist-20260628-1"></script>
+  <script src="{% static 'js/components.js' %}?v=creditmodal-20260624-5"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

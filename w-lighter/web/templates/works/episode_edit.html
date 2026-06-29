@@ -1,0 +1,93 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+
+{% block title %}회차 수정 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/episode_register.css' %}?v=toastsize-20260624-1">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title ep-breadcrumb">
+        <a href="{% url 'works:work_detail' pk=work.work_id %}" class="breadcrumb-work">{{ work.title }}</a>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg);flex-shrink:0;color:var(--color-text)"><path d="M6 9l6 6 6-6"/></svg>
+        <span>회차 수정</span>
+      </h1>
+      <p class="page-desc">입력한 회차를 수정해 보세요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="/credits/charge" class="credit-chip">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon" id="profileBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Panel -->
+  <div class="ep-reg-panel">
+
+    <!-- 탭 (직접 입력만) -->
+    <div class="ep-reg-tabs">
+      <button class="ep-reg-tab active" disabled><span>직접 입력</span></button>
+    </div>
+
+    <!-- 직접 입력 -->
+    <div class="ep-reg-pane active" id="tab-direct">
+
+      <!-- 회차 제목 + 회차 번호 -->
+      <div class="ep-reg-direct-top-row">
+        <div class="ep-reg-direct-title-group">
+          <label class="ep-reg-label">회차 제목 <span class="required">*</span></label>
+          <div class="ep-reg-input-counter-wrap">
+            <input class="ep-reg-input ep-reg-title-input-d" type="text" maxlength="30" id="directTitle"
+              value="{{ episode.title }}">
+            <span class="ep-reg-inner-counter" id="directTitleCounter">{{ episode.title|length }}/30</span>
+          </div>
+        </div>
+        <div class="ep-reg-direct-number-group">
+          <label class="ep-reg-label">회차 번호</label>
+          <div class="ep-reg-number-wrap">
+            <input class="ep-reg-input ep-reg-number-input" type="number" min="1" id="directNumber"
+              value="{{ ep_num }}" readonly>
+            <span class="ep-reg-number-suffix">화</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 원문 textarea -->
+      <div class="ep-reg-content-section">
+        <h3 class="ep-reg-col-title">원문 <span class="required">*</span></h3>
+        <div class="ep-reg-textarea-wrap">
+          <textarea class="ep-reg-input ep-reg-content-input" maxlength="8000" id="directContent">{{ episode.original_text }}</textarea>
+          <div class="ep-reg-counter-bar">
+            <span class="ep-reg-content-counter" id="directContentCounter">{{ episode.original_text|length|stringformat:"s" }}/8,000</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 원문 덮어쓰기 안내 -->
+    <div class="ep-edit-notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>원문을 수정하면 기존 원문이 덮어씌워집니다. 이미 생성된 번역본은 유지되지만, 수정된 원문과 내용이 맞지 않을 수 있습니다. 번역본의 정확도를 위해 번역하기를 다시 진행해 주세요.</span>
+    </div>
+
+    <!-- 하단 수정 버튼 -->
+    <div class="ep-reg-footer">
+      <button class="ep-reg-submit-btn" id="epEditSubmitBtn"
+        data-work-pk="{{ work.work_id }}"
+        data-episode-pk="{{ episode.episode_id }}">회차 수정</button>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/episode_edit.js' %}?v=req-20260624-2"></script>
+{% endblock %}

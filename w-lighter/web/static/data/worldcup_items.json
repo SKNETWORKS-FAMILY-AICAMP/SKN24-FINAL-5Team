@@ -1,0 +1,152 @@
+﻿[
+  {
+    "id": "worldcup_001",
+    "image": "/static/images/minigames/worldcup/worldcup_001.png",
+    "tags": ["재벌남", "계략남"]
+  },
+  {
+    "id": "worldcup_002",
+    "image": "/static/images/minigames/worldcup/worldcup_002.png",
+    "tags": ["황녀", "냉미녀"]
+  },
+  {
+    "id": "worldcup_003",
+    "image": "/static/images/minigames/worldcup/worldcup_003.png",
+    "tags": ["커리어우먼", "계략여주"]
+  },
+  {
+    "id": "worldcup_004",
+    "image": "/static/images/minigames/worldcup/worldcup_004.png",
+    "tags": ["청순", "햇살여주"]
+  },
+  {
+    "id": "worldcup_005",
+    "image": "/static/images/minigames/worldcup/worldcup_005.png",
+    "tags": ["다정남", "능력남"]
+  },
+  {
+    "id": "worldcup_006",
+    "image": "/static/images/minigames/worldcup/worldcup_006.png",
+    "tags": ["기사단장", "호위"]
+  },
+  {
+    "id": "worldcup_007",
+    "image": "/static/images/minigames/worldcup/worldcup_007.png",
+    "tags": ["마법사", "동료"]
+  },
+  {
+    "id": "worldcup_008",
+    "image": "/static/images/minigames/worldcup/worldcup_008.png",
+    "tags": ["검객", "무심남"]
+  },
+  {
+    "id": "worldcup_009",
+    "image": "/static/images/minigames/worldcup/worldcup_009.png",
+    "tags": ["안드로이드", "츤데레"]
+  },
+  {
+    "id": "worldcup_010",
+    "image": "/static/images/minigames/worldcup/worldcup_010.png",
+    "tags": ["재벌3세", "은근집착"]
+  },
+  {
+    "id": "worldcup_011",
+    "image": "/static/images/minigames/worldcup/worldcup_011.png",
+    "tags": ["첫사랑", "대학동기"]
+  },
+  {
+    "id": "worldcup_012",
+    "image": "/static/images/minigames/worldcup/worldcup_012.png",
+    "tags": ["직장동료", "데이트"]
+  },
+  {
+    "id": "worldcup_013",
+    "image": "/static/images/minigames/worldcup/worldcup_013.png",
+    "tags": ["직진남", "연상미"]
+  },
+  {
+    "id": "worldcup_014",
+    "image": "/static/images/minigames/worldcup/worldcup_014.png",
+    "tags": ["햇살남", "연하남"]
+  },
+  {
+    "id": "worldcup_015",
+    "image": "/static/images/minigames/worldcup/worldcup_015.png",
+    "tags": ["대학동기", "순정남"]
+  },
+  {
+    "id": "worldcup_016",
+    "image": "/static/images/minigames/worldcup/worldcup_016.png",
+    "tags": ["피지컬", "나쁜남자"]
+  },
+  {
+    "id": "worldcup_017",
+    "image": "/static/images/minigames/worldcup/worldcup_017.png",
+    "tags": ["귀족", "후회남"]
+  },
+  {
+    "id": "worldcup_018",
+    "image": "/static/images/minigames/worldcup/worldcup_018.png",
+    "tags": ["양반", "신분차이"]
+  },
+  {
+    "id": "worldcup_019",
+    "image": "/static/images/minigames/worldcup/worldcup_019.png",
+    "tags": ["쿨데레", "헌신여주"]
+  },
+  {
+    "id": "worldcup_020",
+    "image": "/static/images/minigames/worldcup/worldcup_020.png",
+    "tags": ["서브남주", "다정남"]
+  },
+  {
+    "id": "worldcup_021",
+    "image": "/static/images/minigames/worldcup/worldcup_021.png",
+    "tags": ["청순", "순정남"]
+  },
+  {
+    "id": "worldcup_022",
+    "image": "/static/images/minigames/worldcup/worldcup_022.png",
+    "tags": ["냉미남", "싸가지"]
+  },
+  {
+    "id": "worldcup_023",
+    "image": "/static/images/minigames/worldcup/worldcup_023.png",
+    "tags": ["집착남", "흑막"]
+  },
+  {
+    "id": "worldcup_024",
+    "image": "/static/images/minigames/worldcup/worldcup_024.png",
+    "tags": ["복수귀", "감정에_서툼"]
+  },
+  {
+    "id": "worldcup_025",
+    "image": "/static/images/minigames/worldcup/worldcup_025.png",
+    "tags": ["쌍둥이", "황녀"]
+  },
+  {
+    "id": "worldcup_026",
+    "image": "/static/images/minigames/worldcup/worldcup_026.png",
+    "tags": ["쌍둥이", "황제"]
+  },
+  {
+    "id": "worldcup_027",
+    "image": "/static/images/minigames/worldcup/worldcup_027.png",
+    "tags": ["평범녀", "소꿉친구"]
+  },
+  {
+    "id": "worldcup_028",
+    "image": "/static/images/minigames/worldcup/worldcup_028.png",
+    "tags": ["소꿉친구", "다정남"]
+  },
+  {
+    "id": "worldcup_029",
+    "image": "/static/images/minigames/worldcup/worldcup_029.png",
+    "tags": ["소개팅어플", "현실여주"]
+  },
+  {
+    "id": "worldcup_030",
+    "image": "/static/images/minigames/worldcup/worldcup_030.png",
+    "tags": ["황제", "집착남"]
+  }
+]

@@ -1,0 +1,120 @@
+{% extends 'layouts/base_landing.html' %}
+{% load static %}
+
+{% block title %}{% if is_complete %}탈퇴 완료 | w.LiGHTER{% else %}탈퇴하기 | w.LiGHTER{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/withdraw.css' %}">
+{% endblock %}
+
+{% block content %}
+<main
+  class="withdraw-page{% if is_complete %} withdraw-page-complete{% endif %}"
+  data-withdraw-page
+  data-home-url="{% url 'pages:landing' %}"
+>
+  {% if is_complete %}
+    <section class="withdraw-complete" aria-labelledby="withdraw-complete-title">
+      <img class="withdraw-logo" src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+      <h1 id="withdraw-complete-title">탈퇴 완료</h1>
+
+      <div class="withdraw-complete-message">
+        <h2>다시 켜질 불빛을 기다릴게요.</h2>
+        <p>
+          그동안 함께 써내려간 이야기들,<br>
+          고마웠어요.<br>
+          언제든 다시 <em>Light</em> 해주세요.
+        </p>
+      </div>
+
+      <p class="withdraw-redirect-copy">
+        <span data-withdraw-countdown>3</span>초 뒤 메인 페이지로 이동합니다.
+      </p>
+    </section>
+  {% else %}
+    <div class="withdraw-fail-toast" role="status" aria-live="polite" data-withdraw-toast hidden>
+      <span aria-hidden="true">※</span>
+      <strong>탈퇴 처리에 실패했습니다.</strong>
+    </div>
+
+    <section class="withdraw-flow" aria-labelledby="withdraw-title">
+      <img class="withdraw-logo" src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+      <h1 id="withdraw-title">탈퇴하기</h1>
+
+      <div class="withdraw-content">
+        <h2>회원탈퇴 전 아래&nbsp; 유의사항을 확인해 주세요</h2>
+
+        <article class="withdraw-email-card" aria-label="탈퇴 계정 이메일">
+          <span>이메일</span>
+          <strong>{{ withdraw_email|default:'bugbudaegong@gmail.com' }}</strong>
+        </article>
+
+        <article class="withdraw-notice-card" aria-label="회원탈퇴 유의사항">
+          <ul>
+            <li>계정이 삭제된 이후에는 복구할 수 없습니다.</li>
+            <li>탈퇴 즉시 같은 계정으로 7일간 재가입이 제한됩니다.</li>
+            <li>
+              해당 계정에 귀속된 <strong>번역본 및 채팅 기록</strong> 등 <strong>활동 내역</strong>이
+              모두 삭제되며, 복구할 수 없습니다.
+            </li>
+            <li>보유 중인 <strong>크레딧</strong>은 모두 소멸되며, 복구할 수 없습니다.</li>
+          </ul>
+        </article>
+
+        <fieldset class="withdraw-agreements">
+          <legend class="sr-only">회원탈퇴 동의 항목</legend>
+
+          <label class="withdraw-check-row">
+            <input type="checkbox" data-withdraw-check>
+            <span class="withdraw-check-box" aria-hidden="true"></span>
+            <span>유의사항을 모두 확인하였으며, 회원 탈퇴시 보유한 크레딧이 소멸되는 것에 동의합니다.</span>
+          </label>
+
+          <label class="withdraw-check-row">
+            <input type="checkbox" data-withdraw-check>
+            <span class="withdraw-check-box" aria-hidden="true"></span>
+            <span>계정은 탈퇴 후 복구할 수 없으며, 이에 동의합니다.</span>
+          </label>
+        </fieldset>
+
+        <div class="withdraw-actions">
+          <a class="withdraw-button withdraw-button-secondary" href="{% url 'works:library' %}">취소하기</a>
+          <button
+            class="withdraw-button withdraw-button-primary"
+            type="button"
+            data-withdraw-open
+            disabled
+          >탈퇴하기</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="withdraw-modal-layer" data-withdraw-modal hidden>
+      <div class="withdraw-modal-backdrop" data-withdraw-close></div>
+      <section
+        class="withdraw-confirm-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="withdraw-confirm-title"
+        aria-describedby="withdraw-confirm-desc"
+      >
+        <h2 id="withdraw-confirm-title">정말 탈퇴하시겠어요?</h2>
+        <p id="withdraw-confirm-desc">계정의 모든 정보는 삭제되며 복구할 수 없습니다.</p>
+        <div class="withdraw-modal-actions">
+          <button class="withdraw-modal-button withdraw-modal-cancel" type="button" data-withdraw-close>취소하기</button>
+          <button
+            class="withdraw-modal-button withdraw-modal-submit"
+            type="button"
+            data-withdraw-submit
+            data-complete-url="{% url 'accounts:withdraw_complete' %}"
+          >탈퇴하기</button>
+        </div>
+      </section>
+    </div>
+  {% endif %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/withdraw.js' %}?v=withdraw-20260623-1"></script>
+{% endblock %}

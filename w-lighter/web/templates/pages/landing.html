@@ -1,0 +1,348 @@
+﻿{% extends 'layouts/base_landing.html' %}
+{% load static %}
+
+{% block title %}w.LiGHTER | 당신의 도우미, 라이터{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="landing-page" id="top">
+  <header class="landing-gnb" aria-label="랜딩 페이지 내비게이션">
+    <a class="landing-logo" href="#top" aria-label="w.LiGHTER 홈">
+      <img src="{% static 'images/landing/logo-w-lighter.svg' %}" alt="w.LiGHTER">
+    </a>
+    <nav class="landing-nav" aria-label="주요 섹션">
+      <a href="#top">서비스 소개</a>
+      <a href="#service">주요 기능</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    {% if user.is_authenticated %}
+    <a class="landing-login-button" href="{% url 'works:library' %}">내 서재로 가기</a>
+    {% else %}
+    <button class="landing-login-button" type="button" data-open-login>로그인 / 시작하기</button>
+    {% endif %}
+  </header>
+
+  <main>
+    <section class="landing-section hero-section" aria-labelledby="hero-title">
+      <div class="landing-container hero-grid">
+        <div class="hero-copy">
+          <p class="section-eyebrow">AI 기반 웹소설 현지화 번역 어시스턴트</p>
+          <h1 id="hero-title">당신의 이야기,<br><span class="marker-highlight">세계의 언어로</span> 빛내다</h1>
+          <p class="hero-description">
+            현지화 가이드, 번역부터 검수, 표지 이미지, 관계도 생성까지—
+            작가님의 창작과 글로벌 진출을 한곳에서 지원합니다.
+          </p>
+          {% if user.is_authenticated %}
+          <a class="hero-cta" href="{% url 'works:library' %}">
+            지금 시작하기
+            <span class="cta-arrow" aria-hidden="true"></span>
+          </a>
+          {% else %}
+          <button class="hero-cta" type="button" data-open-login>
+            지금 시작하기
+            <span class="cta-arrow" aria-hidden="true"></span>
+          </button>
+          {% endif %}
+        </div>
+
+        <div class="hero-visual" aria-label="w.LiGHTER 서비스 이미지 예시">
+          <div class="hero-image-card hero-image-card-top">
+            <img src="{% static 'images/landing/hero-character-1.png' %}" alt="무협 장르 웹소설 캐릭터 예시" loading="eager">
+          </div>
+          <div class="hero-image-card hero-image-card-side">
+            <img src="{% static 'images/landing/hero-character-2.png' %}" alt="판타지 장르 웹소설 캐릭터 예시" loading="eager">
+          </div>
+          <div class="hero-image-card hero-image-card-main">
+            <img src="{% static 'images/landing/hero-character-3.png' %}" alt="로맨스 판타지 웹소설 캐릭터 예시" loading="eager">
+          </div>
+          <div class="hero-floating-card">
+            <strong>당신의 도우미, w.LiGHTER</strong>
+            <span>현지화 가이드부터 번역·검수, 표지 이미지 생성까지 한 번에.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-container">
+        <aside class="new-member-banner" aria-label="신규 회원 특전">
+          <span class="new-badge">NEW</span>
+          <div>
+            <strong>신규 회원 특전!</strong>
+            <p>신규 회원 가입 시 1,000 크레딧을 무료 지급해 드립니다.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="landing-section service-section" aria-labelledby="service-title">
+      <div class="landing-container">
+        <p class="section-eyebrow" id="service">What.LiGHTER</p>
+        <h2 id="service-title">분석부터 최적화까지 하나의 흐름으로 완성하는 글로벌 웹소설 시장 진출</h2>
+        <p class="section-description">w.LiGHTER는 원작의 문체와 장르를 정밀 분석하여, 타깃 국가에 맞는 현지화 방향성을 제시합니다.</p>
+
+        <div class="feature-tabs" role="tablist" aria-label="주요 기능 캐러셀 탭">
+          <button class="feature-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="feature-panel" data-feature-tab="0">01 <span>현지화 가이드</span></button>
+          <button class="feature-tab" type="button" role="tab" aria-selected="false" aria-controls="feature-panel" data-feature-tab="1">02 <span>번역 / 검수</span></button>
+          <button class="feature-tab" type="button" role="tab" aria-selected="false" aria-controls="feature-panel" data-feature-tab="2">03 <span>표지 이미지</span></button>
+          <button class="feature-tab" type="button" role="tab" aria-selected="false" aria-controls="feature-panel" data-feature-tab="3">04 <span>캐릭터 관계도</span></button>
+        </div>
+
+        <article class="feature-carousel-card" id="feature-panel" aria-live="polite">
+          <div class="feature-controls" aria-label="캐러셀 이전/다음">
+            <button class="carousel-arrow carousel-arrow-prev" type="button" data-feature-prev aria-label="이전 기능"></button>
+            <button class="carousel-arrow carousel-arrow-next" type="button" data-feature-next aria-label="다음 기능"></button>
+          </div>
+
+          <div class="feature-content">
+            <p class="feature-kicker" data-feature-kicker>01 — 현지화 가이드</p>
+            <h3 data-feature-title>작품 분석으로 완성하는<br>타깃 국가별 현지화 전략</h3>
+            <p data-feature-description>
+              작품의 문체와 시놉시스를 분석해, 타깃 국가의 문화·시장 맥락에 맞는 현지화 가이드를 제공합니다.
+              시놉시스가 있으면 적합한 수출 국가까지 추천해 드립니다.
+            </p>
+            <ul class="feature-list" data-feature-list>
+              <li>일본·중국·미국·태국 4개국 문화 코드 기반 특성 안내</li>
+              <li>원작의 고유한 매력을 유지하며 현지 정서에 맞춘 문체 변환 가이드 제공</li>
+              <li>국가별 플랫폼 게시 규정·문화 주의사항 사전 점검</li>
+            </ul>
+          </div>
+
+          <div class="feature-mockup has-image"
+            data-feature-mockup="guide"
+            data-mockup-guide="{% static 'images/landing/mockups/feature-guide.svg' %}"
+            data-mockup-translate="{% static 'images/landing/mockups/feature-translate.svg' %}"
+            data-mockup-cover="{% static 'images/landing/mockups/feature-cover.svg' %}"
+            data-mockup-relation="{% static 'images/landing/mockups/feature-relation.svg' %}"
+            aria-hidden="true">
+            <img src="{% static 'images/landing/mockups/feature-guide.svg' %}" alt="">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="landing-section why-section" aria-labelledby="why-title">
+      <div class="landing-container">
+        <p class="section-eyebrow">Why.LiGHTER</p>
+        <h2 id="why-title">기계 번역이 아닌, 작가를 위한 빠른 <span class="marker-highlight">현지화 도우미</span></h2>
+        <p class="section-description">w.LiGHTER는 개인 작가가 직접적으로 제어 가능한, 쉽고 빠른 현지화 서비스 솔루션입니다.</p>
+
+        <div class="problem-grid" aria-label="작가들이 겪는 주요 문제">
+          <article class="problem-card">
+            <span>01</span>
+            <h3>높은 번역 비용</h3>
+            <p>전문 번역 의뢰 시 1화당 10~20만원 발생</p>
+            <p>번역 후 검수·수정 시 제작비 비중 발생</p>
+          </article>
+          <article class="problem-card">
+            <span>02</span>
+            <h3>번역 품질의 한계</h3>
+            <p>고유명사·세계관 용어 일관성 유지 불가</p>
+            <p>국가별 민감 표현·문화적 금기 코드 대응 불가</p>
+          </article>
+          <article class="problem-card">
+            <span>03</span>
+            <h3>검수 체계 부재</h3>
+            <p>번역 전 문고 흐름 점검 등 도구 한계</p>
+            <p>국가별 콘텐츠 규제 사전 확인 불가</p>
+          </article>
+        </div>
+
+        <div class="compare-heading">그래서, <span class="marker-highlight"><strong>w.LiGHTER</strong>는 이렇게 다릅니다</span></div>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>비교 항목</th>
+                <th>일반 AI 번역기
+                  <span>범용 모델</span>
+                </th>
+                <th>전문 번역 에이전시
+                  <span>전문가 번역</span>
+                </th>
+                <th class="brand-column">
+                  <img class="compare-brand-logo" src="{% static 'images/landing/logo-compare.svg' %}" alt="w.LiGHTER">
+                  <span>웹소설 현지화 특화</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>서비스 대상</th>
+                <td><span class="mark mark-bad" aria-hidden="true"></span>불특정 일반 사용자</td>
+                <td><span class="mark mark-bad" aria-hidden="true"></span>출판사 / CP사 중심</td>
+                <td><span class="mark mark-good" aria-hidden="true"></span>개인 작가</td>
+              </tr>
+              <tr>
+                <th>현지화 수준</th>
+                <td><span class="mark mark-bad" aria-hidden="true"></span>단순 직역 / 프롬프트 의존</td>
+                <td><span class="mark mark-mid" aria-hidden="true"></span>번역가 역량에 좌우</td>
+                <td><span class="mark mark-good" aria-hidden="true"></span>현지 관용구 및 문화적 금기 표현 반영</td>
+              </tr>
+              <tr>
+                <th>장르 특화 가이드</th>
+                <td><span class="mark mark-mid" aria-hidden="true"></span>범용 프롬프트 응답</td>
+                <td><span class="mark mark-bad" aria-hidden="true"></span>미제공</td>
+                <td><span class="mark mark-good" aria-hidden="true"></span>장르 인식 기반 국가별 가이드 생성</td>
+              </tr>
+              <tr>
+                <th>작업 도구</th>
+                <td><span class="mark mark-mid" aria-hidden="true"></span>단순 텍스트 입력창</td>
+                <td><span class="mark mark-mid" aria-hidden="true"></span>파일 수동 송수신</td>
+                <td><span class="mark mark-plus" aria-hidden="true"></span>번역 / 검수, 표지, 관계도 올인원 관리</td>
+              </tr>
+              <tr>
+                <th>비용 구조</th>
+                <td><span class="mark mark-bad" aria-hidden="true"></span>무료 / 한도 제한</td>
+                <td><span class="mark mark-mid" aria-hidden="true"></span>고가 / 1화 10~20만 원</td>
+                <td><span class="mark mark-plus" aria-hidden="true"></span>합리적 비용 / 크레딧 충전형</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section story-section" aria-labelledby="story-title">
+      <div class="landing-container">
+        <p class="section-eyebrow">w.LiGHTER Story</p>
+        <h2 id="story-title">작가님들의 이야기</h2>
+        <p class="section-description">w.LiGHTER는 이런 고민에서 시작되었습니다.</p>
+      </div>
+
+      <div class="story-slider" aria-label="작가 목소리 카드 슬라이드">
+        <div class="story-track" data-story-track>
+          <article class="story-card">
+            <img class="quote-icon" src="{% static 'images/landing/icons/quotes-left-colored.svg' %}" data-quote-featured="{% static 'images/landing/icons/quotes-left.svg' %}" data-quote-default="{% static 'images/landing/icons/quotes-left-colored.svg' %}" alt="" aria-hidden="true">
+            <p>댓글로, DM으로 해외 독자들의 번역 요청을 수없이 받아왔습니다. 하지만 전문 번역을 맡기기엔 수백 화 분량의 장편을 감당할 수 없었습니다.</p>
+            <strong>@writer</strong>
+            <small>현대 로맨스 연재 작가</small>
+          </article>
+          <article class="story-card is-featured">
+            <img class="quote-icon" src="{% static 'images/landing/icons/quotes-left.svg' %}" data-quote-featured="{% static 'images/landing/icons/quotes-left.svg' %}" data-quote-default="{% static 'images/landing/icons/quotes-left-colored.svg' %}" alt="" aria-hidden="true">
+            <p>AI 번역기를 써봐도 매번 캐릭터 이름이 달라지고 세계관 설정이 어긋났어요. 원작의 톤을 지키면서 현지화할 방법이 필요했습니다.</p>
+            <strong>@writer</strong>
+            <small>판타지 장편 작가</small>
+          </article>
+          <article class="story-card">
+            <img class="quote-icon" src="{% static 'images/landing/icons/quotes-left-colored.svg' %}" data-quote-featured="{% static 'images/landing/icons/quotes-left.svg' %}" data-quote-default="{% static 'images/landing/icons/quotes-left-colored.svg' %}" alt="" aria-hidden="true">
+            <p>표지, 번역, 국가별 표현 검수까지 각각 따로 준비하다 보니 해외 진출의 시작점부터 막막했습니다.</p>
+            <strong>@writer</strong>
+            <small>웹소설 신인 작가</small>
+          </article>
+          <article class="story-card">
+            <img class="quote-icon" src="{% static 'images/landing/icons/quotes-left-colored.svg' %}" data-quote-featured="{% static 'images/landing/icons/quotes-left.svg' %}" data-quote-default="{% static 'images/landing/icons/quotes-left-colored.svg' %}" alt="" aria-hidden="true">
+            <p>작품별 세계관과 인물 관계를 한 번에 관리하면서 번역까지 이어지는 도구가 있으면 좋겠다고 생각했습니다.</p>
+            <strong>@writer</strong>
+            <small>무협 로맨스 작가</small>
+          </article>
+        </div>
+        <p class="story-footnote">[2026년 6월, 웹소설 작가 대상 설문 응답에서 발췌·재구성]</p>
+      </div>
+    </section>
+
+    <section class="landing-section faq-section" aria-labelledby="faq-title">
+      <div class="landing-container">
+        <p class="section-eyebrow" id="faq">FAQ</p>
+        <h2 id="faq-title">자주 묻는 질문</h2>
+        <p class="section-description">서비스를 사용하시기 전, 작가님들이 가장 많이 묻는 질문을 모았습니다.</p>
+
+        <div class="faq-list">
+          <article class="faq-item is-open">
+            <button class="faq-question" type="button" aria-expanded="true">
+              <span class="faq-icon" aria-hidden="true"></span>
+              크레딧이란 무엇인가요?
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>크레딧은 w.LiGHTER의 유료 기능을 실행할 때 차감되는 충전식 이용 단위입니다. 1크레딧=0.99원 기준으로 사용할 수 있습니다.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-icon" aria-hidden="true"></span>
+              모든 국가 번역이 가능한가요? 어떤 국가를 지원하나요?
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>라이터는 현재  영어(미국)·일본어·중국어(간체)·태국어 4개국 언어를 지원하며, 한국어 원문을 각 나라의 언어와 문화 정서에 맞춰 현지화해 드립니다. 단순 직역이 아니라 해당 문화권에서 자연스러운 표현으로 옮기는 것이 라이터의 방식입니다. 지원 국가는 앞으로 순차적으로 넓혀갈 계획입니다.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-icon" aria-hidden="true"></span>
+              일반 브라우저 번역기와 무엇이 다른가요?
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>일반 브라우저 번역기는 전체 페이지를 빠르게 번역하는 데 중점을 두었다면, 라이터는 작가님의 ‘웹소설’에 주목합니다. 무엇보다 기계적 번역이 아닌 현지에서 자주 사용되는 관용구를 활용하거나, 현지 문화권에서 민감할 수 있는 표현을 탐지하는 등 진정한 현지화 번역을 제공하고자 합니다. </p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-icon" aria-hidden="true"></span>
+              번역 결과물의 저작권은 누구에게 있나요?
+              <span class="faq-arrow" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer">
+              <p>작가님이 라이터에 올린 원문(원저작물)의 저작권은 전적으로 작가님께 있습니다. 라이터는 번역과 현지화를 돕는 도구일 뿐, 작가님의 권리를 가져가지 않습니다. 번역 결과물 또한 작가님이 자유롭게 출판하고 활용하실 수 있습니다. 저작권 귀속과 이용 범위에 관한 자세한 사항은 <a href="{% url 'pages:terms' %}">[서비스 이용약관]</a>에서 확인하실 수 있습니다.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <div class="landing-container footer-grid">
+      <div class="footer-brand">
+        <a class="landing-logo footer-logo" href="#top">
+          <img src="{% static 'images/landing/logo-footer.svg' %}" alt="w.LiGHTER">
+        </a>
+      </div>
+      <div class="footer-column">
+        <strong>팀</strong>
+        <span>이세계 출판부</span>
+        <span>SKN24 · 5Team</span>
+      </div>
+      <div class="footer-column">
+        <strong>약관</strong>
+        <a href="{% url 'pages:terms' %}">서비스 이용약관</a>
+        <a href="{% url 'pages:privacy' %}">개인정보 처리방침</a>
+      </div>
+      <div class="footer-column">
+        <strong>문의하기</strong>
+        <a href="mailto:with.lighter@gmail.com">with.lighter@gmail.com</a>
+      </div>
+    </div>
+    <div class="landing-container footer-bottom">© 2026 w.LiGHTER. All rights reserved.</div>
+  </footer>
+</div>
+
+<div class="ui-backdrop login-modal-backdrop" data-login-backdrop hidden></div>
+<section class="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" data-login-modal hidden>
+    <button class="modal-close" type="button" data-close-login aria-label="로그인 모달 닫기">
+      <img src="{% static 'images/landing/icons/modal_close.svg' %}" alt="" aria-hidden="true">
+    </button>
+    <h2 id="login-modal-title">소셜 계정으로 3초만에 시작하세요.</h2>
+    <div class="social-login-list">
+      <a class="social-button social-google" href="{% url 'accounts:oauth_login' 'google' %}" aria-label="Google 계정으로 계속">
+        <img src="{% static 'images/landing/social/google.svg' %}" alt="" aria-hidden="true">
+        <span>Google 계정으로 계속</span>
+      </a>
+      <a class="social-button social-kakao" href="{% url 'accounts:oauth_login' 'kakao' %}" aria-label="Kakao 계정으로 계속">
+        <img src="{% static 'images/landing/social/kakao.svg' %}" alt="" aria-hidden="true">
+        <span>Kakao 계정으로 계속</span>
+      </a>
+      <a class="social-button social-naver" href="{% url 'accounts:oauth_login' 'naver' %}" aria-label="Naver 계정으로 계속">
+        <img src="{% static 'images/landing/social/naver.svg' %}" alt="" aria-hidden="true">
+        <span>Naver 계정으로 계속</span>
+      </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock %}

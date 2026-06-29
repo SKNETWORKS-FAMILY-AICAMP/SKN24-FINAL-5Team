@@ -1,0 +1,194 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+
+{% block title %}현지화 가이드 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/localization.css' %}?v=modalsize-20260624-3">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title">현지화 가이드</h1>
+      <p class="page-desc">대상 국가의 현지화 리포트를 받아 보세요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="{% url 'credits:credit_charge' %}"
+         class="credit-chip"
+         data-credit-use-url="{% url 'credits:credit_use' %}"
+         data-csrf="{{ csrf_token }}">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon" id="profileBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workspace -->
+  <div class="lc-workspace">
+
+    <!-- ===== 좌측 패널 ===== -->
+    <div class="lc-panel-left">
+
+      <!-- 작품 선택 -->
+      <div class="lc-field-group">
+        <label class="lc-label">작품 선택</label>
+        <div class="lc-select-wrap" id="lcWorkSelectWrap">
+          <button class="lc-select-trigger" id="lcWorkSelectTrigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span class="lc-select-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <path d="M8 3v18M8 7h4M8 11h3"/>
+              </svg>
+            </span>
+            <span class="lc-select-text" id="lcWorkSelectText">작품을 선택하세요</span>
+            <span class="lc-select-chevron" id="lcWorkSelectChevron">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+
+          <div class="lc-dropdown" id="lcWorkDropdown" role="listbox" aria-label="작품 목록">
+            {% for work in works %}
+            <div class="lc-dropdown-item" role="option"
+                 data-id="{{ work.work_id }}"
+                 data-title="{{ work.title }}"
+                 data-genre="{{ work.genre }}"
+                 data-synopsis="{% if work.synopsis %}true{% else %}false{% endif %}">
+              <div class="lc-di-thumb">{% if work.cover_image_url %}<img class="lc-di-img" src="{{ work.cover_image_url }}" alt="{{ work.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="lc-di-placeholder"></div>{% endif %}</div>
+              <div class="lc-di-info">
+                <p class="lc-di-title">{{ work.title }}</p>
+                <p class="lc-di-genre">{{ work.genre }}</p>
+              </div>
+            </div>
+            {% empty %}
+            <p style="padding:12px 16px; font-size:13px; color:var(--color-text-muted);">등록된 작품이 없어요.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- 시놉 없음 경고 (숨김) -->
+      <div class="lc-no-synopsis" id="lcNoSynopsis" style="display:none">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" flex-shrink="0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+        <p>선택한 작품 정보에 시놉시스가 없어, 국가 추천이 어려워요.<br>가이드 생성을 위해 국가를 직접 선택해 주세요.</p>
+      </div>
+
+      <!-- 국가 선택 (시놉 없을 때) -->
+      <div class="lc-country-group" id="lcCountryGroup" style="display:none">
+        <label class="lc-label">국가 선택</label>
+        <div class="lc-country-chips" id="lcCountryChips">
+          <button class="lc-country-chip" type="button" data-code="EN" data-name="미국">EN</button>
+          <button class="lc-country-chip" type="button" data-code="CN" data-name="중국">CN</button>
+          <button class="lc-country-chip" type="button" data-code="JP" data-name="일본">JP</button>
+          <button class="lc-country-chip" type="button" data-code="TH" data-name="태국">TH</button>
+        </div>
+      </div>
+
+      <!-- 생성 버튼 -->
+      <button class="lc-generate-btn" id="lcGenerateBtn" type="button">
+        현지화 가이드 생성하기 · 300C
+      </button>
+
+    </div>
+
+    <!-- ===== 우측 패널 ===== -->
+    <div class="lc-panel-right">
+      <div class="lc-result-header">
+        <h2 class="lc-result-title">생성된 현지화 가이드</h2>
+        <span class="lc-result-count" id="lcResultCount">0 / 5 개</span>
+      </div>
+      <p class="lc-result-notice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+        현지화 가이드의 플랫폼 규정은 15일에 한 번 업데이트하고 있습니다.
+      </p>
+
+      <!-- Empty State -->
+      <div class="lc-empty-state" id="lcEmptyState">
+        <div class="lc-empty-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <p class="lc-empty-title">아직 생성된 가이드가 없어요</p>
+        <p class="lc-empty-desc">작품을 선택하고 '현지화 가이드 생성하기'를 눌러보세요.</p>
+      </div>
+
+      <!-- 가이드 목록 -->
+      <div class="lc-guide-list" id="lcGuideList" style="display:none"></div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block full_content %}
+
+<!-- 상세 조회 모달 -->
+<div class="lc-detail-backdrop" id="lcDetailBackdrop"></div>
+<div class="lc-detail-modal" id="lcDetailModal">
+  <div class="lc-detail-header">
+    <div class="lc-detail-header-left">
+      <h2 class="lc-detail-title" id="lcDetailTitle">현지화 가이드</h2>
+      <p class="lc-detail-date" id="lcDetailDate">생성일시 —</p>
+    </div>
+    <div class="lc-detail-header-right">
+      <button class="lc-detail-pdf-btn" id="lcDetailPdfBtn" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF 다운로드
+      </button>
+      <button class="lc-detail-delete-btn" id="lcDetailDeleteBtn" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        가이드 삭제
+      </button>
+      <button class="lc-detail-close" id="lcDetailClose" type="button" aria-label="닫기">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="lc-detail-body" id="lcDetailBody"></div>
+</div>
+
+<!-- 5개 꽉 찼을 때 새로 생성 확인 모달 -->
+<div class="lc-overwrite-backdrop" id="lcOverwriteBackdrop"></div>
+<div class="lc-overwrite-modal" id="lcOverwriteModal">
+  <h3 class="lc-overwrite-title">해당 작품의 가이드를 새로 생성할까요?</h3>
+  <p class="lc-overwrite-desc">작품별 현지화 가이드는 최대 5개까지 저장되며, 새로 생성할 경우 가장 오래된 버전이 삭제됩니다. 삭제된 현지화 가이드는 복구할 수 없습니다.</p>
+  <div class="lc-overwrite-actions">
+    <button class="lc-modal-btn cancel" id="lcOverwriteCancel">취소</button>
+    <button class="lc-modal-btn confirm" id="lcOverwriteConfirm">새로 생성하기</button>
+  </div>
+</div>
+
+<!-- 삭제 확인 모달 -->
+<div class="lc-delete-backdrop" id="lcDeleteBackdrop"></div>
+<div class="lc-delete-modal" id="lcDeleteModal">
+  <h3 class="lc-delete-title">이 가이드를 삭제할까요?</h3>
+  <p class="lc-delete-desc">선택한 가이드가 삭제되며 복구할 수 없습니다.</p>
+  <div class="lc-delete-actions">
+    <button class="lc-modal-btn cancel" id="lcDeleteCancel">취소</button>
+    <button class="lc-modal-btn confirm" id="lcDeleteConfirm">삭제하기</button>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="lc-toast" id="lcToast"></div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.GUIDE_CONFIG = {
+    csrfToken:   "{{ csrf_token }}",
+    generateUrl: "{% url 'guides:guide_generate' %}",
+    savedUrl:    "{% url 'guides:guide_saved' work_pk=0 %}",
+    deleteUrl:   "{% url 'guides:guide_delete' work_pk=0 %}",
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="{% static 'js/localization.js' %}?v=delid-20260624-4"></script>
+{% endblock %}

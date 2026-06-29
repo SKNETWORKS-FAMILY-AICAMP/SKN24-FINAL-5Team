@@ -1,0 +1,48 @@
+name: Deploy web to EC2
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t w-lighter-web:latest .
+
+      - name: Save Docker image
+        run: docker save -o w-lighter-web.tar w-lighter-web:latest
+
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2_key
+          chmod 600 ~/.ssh/ec2_key
+          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Upload Docker image to EC2
+        run: |
+          scp -i ~/.ssh/ec2_key w-lighter-web.tar "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/tmp/w-lighter-web.tar"
+
+      - name: Restart web container on EC2
+        run: |
+          ssh -i ~/.ssh/ec2_key "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" <<'EOF'
+          set -e
+          docker load -i /tmp/w-lighter-web.tar
+          docker rm -f w-lighter-web || true
+          docker run -d \
+            --name w-lighter-web \
+            --env-file /home/ubuntu/wlighter.env \
+            --restart unless-stopped \
+            -p 8080:8000 \
+            w-lighter-web:latest
+          docker ps --filter name=w-lighter-web
+          rm -f /tmp/w-lighter-web.tar
+          EOF

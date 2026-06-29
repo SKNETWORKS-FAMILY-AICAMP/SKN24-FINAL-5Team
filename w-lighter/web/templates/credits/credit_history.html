@@ -1,0 +1,172 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+
+{% block title %}크레딧 내역 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/credit_history.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title">크레딧 내역</h1>
+      <p class="page-desc">내 작품에 쓴 크레딧, 여기서 모두 확인할 수 있어요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="/credits/charge" class="credit-chip">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Panel -->
+    <div class="table-panel"
+         data-cancel-url="{% url 'credits:payment_cancel_demo' %}"
+         data-csrf="{{ csrf_token }}">
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn {% if active_tab == 'charge' %}active{% endif %}" onclick="location.href='?tab=charge'">충전 내역</button>
+      <button class="tab-btn {% if active_tab == 'usage' %}active{% endif %}" onclick="location.href='?tab=usage'">사용 내역</button>
+    </div>
+
+    <!-- Filter Row -->
+    <form method="get" id="filterForm" class="filter-row">
+      <input type="hidden" name="tab" value="{{ active_tab }}">
+      <div class="date-input-wrap">
+        <input type="date" class="date-input" id="dateFrom" name="date_from" value="{{ date_from }}" placeholder="연도-월-일">
+        <svg class="date-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <span class="date-sep">~</span>
+      <div class="date-input-wrap">
+        <input type="date" class="date-input" id="dateTo" name="date_to" value="{% if date_to %}{{ date_to }}{% else %}{{ today|date:'Y-m-d' }}{% endif %}">
+        <svg class="date-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <button type="button" class="filter-chip" data-month="1">1개월</button>
+      <button type="button" class="filter-chip" data-month="3">3개월</button>
+      <button type="button" class="filter-chip" data-month="6">6개월</button>
+      <button type="button" class="filter-reset" id="resetFilter" title="초기화">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
+    </form>
+
+    <!-- 충전 내역 테이블 -->
+    <div id="table-charge" class="table-scroll" {% if active_tab != "charge" %}style="display:none"{% endif %}>
+      <table class="data-table">
+        <colgroup>
+          <col style="width:22%">
+          <col style="width:22%">
+          <col style="width:20%">
+          <col style="width:20%">
+          <col style="width:16%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>일시</th>
+            <th>플랜명</th>
+            <th>구매한 크레딧</th>
+            <th>결제금액</th>
+            <th>상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in charges %}
+          <tr>
+            <td>{{ row.created_at|date:"Y.m.d H:i" }}</td>
+            <td>{{ row.label }}</td>
+            <td class="credit-amount">{{ row.credit_amount|floatformat:"g" }}</td>
+            <td class="price-amount">{% if row.kind == 'bonus' %}무료{% else %}{{ row.price|floatformat:"g" }} 원{% endif %}</td>
+            <td>
+              {% if row.kind == 'bonus' %}
+                <span class="status-text">지급 완료</span>
+              {% elif row.status == 'CANCELED' %}
+                <span class="status-text">취소 완료</span>
+              {% elif row.cancelable %}
+                <button class="status-btn" type="button" data-payment-id="{{ row.payment_id }}">구매 취소</button>
+              {% else %}
+                <span class="status-text">취소 불가</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" style="text-align:center;padding:32px;color:var(--color-text-muted);">충전 내역이 없어요.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 사용 내역 테이블 -->
+    <div id="table-usage" class="table-scroll" {% if active_tab == "usage" %}{% else %}style="display:none"{% endif %}>
+      <table class="data-table">
+        <colgroup>
+          <col style="width:30%">
+          <col style="width:40%">
+          <col style="width:30%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>일시</th>
+            <th>기능명</th>
+            <th>사용한 크레딧</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in usages %}
+          <tr>
+            <td>{{ t.created_at|date:"Y.m.d H:i" }}</td>
+            <td>{{ t.feature_name }}</td>
+            <td class="price-amount">{{ t.change_amount|floatformat:"g" }} C</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" style="text-align:center;padding:32px;color:var(--color-text-muted);">사용 내역이 없어요.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    {% if active_tab == 'charge' %}
+    <!-- Footer -->
+    <div class="table-footer">
+      <span class="total-count">전체 {{charges.paginator.count}}건{% if charges.paginator.count > 0 %} 중 {{charges.start_index}}–{{charges.end_index}}건{% endif %}</span>
+      <div class="pagination">
+        {% if charges.has_previous %}
+        <a class="page-btn" href="?tab=charge&page={{charges.previous_page_number}}"><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,1 1,6 6,11"/></svg></a>
+        {% else %}<button class="page-btn" disabled><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,1 1,6 6,11"/></svg></button>{% endif %}
+        {% for i in charges.paginator.page_range %}
+        <a class="page-num {% if i == charges.number %}active{% endif %}" href="?tab=charge&page={{i}}">{{i}}</a>
+        {% endfor %}
+        {% if charges.has_next %}
+        <a class="page-btn" href="?tab=charge&page={{charges.next_page_number}}"><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,1 7,6 2,11"/></svg></a>
+        {% else %}<button class="page-btn" disabled><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,1 7,6 2,11"/></svg></button>{% endif %}
+      </div>
+    </div>
+    {% else %}
+    <!-- Footer -->
+    <div class="table-footer">
+      <span class="total-count">전체 {{usages.paginator.count}}건{% if usages.paginator.count > 0 %} 중 {{usages.start_index}}–{{usages.end_index}}건{% endif %}</span>
+      <div class="pagination">
+        {% if usages.has_previous %}
+        <a class="page-btn" href="?tab=usage&page={{usages.previous_page_number}}"><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,1 1,6 6,11"/></svg></a>
+        {% else %}<button class="page-btn" disabled><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,1 1,6 6,11"/></svg></button>{% endif %}
+        {% for i in usages.paginator.page_range %}
+        <a class="page-num {% if i == usages.number %}active{% endif %}" href="?tab=usage&page={{i}}">{{i}}</a>
+        {% endfor %}
+        {% if usages.has_next %}
+        <a class="page-btn" href="?tab=usage&page={{usages.next_page_number}}"><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,1 7,6 2,11"/></svg></a>
+        {% else %}<button class="page-btn" disabled><svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,1 7,6 2,11"/></svg></button>{% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div><!-- /table-panel -->
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/credit_history.js' %}?v=cancel-demo-20260622-2"></script>
+{% endblock %}

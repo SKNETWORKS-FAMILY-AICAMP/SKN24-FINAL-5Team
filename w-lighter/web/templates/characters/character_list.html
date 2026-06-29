@@ -1,0 +1,161 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+{% block title %}캐릭터 설정집 | w.LiGHTER{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/character_list.css' %}?v=overflowvis-20260626-67">
+{% endblock %}
+{% block content %}
+  <!-- 페이지 헤더 -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title">캐릭터 설정집</h1>
+      <p class="page-desc">시놉시스 기준으로 캐릭터 설정을 추출하고 한곳에서 관리해보세요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="{% url 'credits:credit_charge' %}" class="credit-chip"
+         data-credit-use-url="{% url 'credits:credit_use' %}"
+         data-csrf="{{ csrf_token }}">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon" id="profileBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+  <!-- 상단: 작품 선택 + 결과 요약 -->
+  <div class="char-top-row">
+    <!-- 작품 선택 카드 -->
+    <div class="char-panel select-panel">
+      <div class="char-field-group">
+        <label class="char-label">작품 선택</label>
+        <div class="char-select-wrap" id="workSelect">
+          <button type="button" class="char-select-trigger" id="workSelectTrigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="char-select-icon" id="workSelectThumb">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 3v18M8 7h4M8 11h3"/></svg>
+            </span>
+            <span class="char-select-text" id="workSelectValue">작품을 선택하세요</span>
+            <span class="char-select-chevron" id="workSelectChevron">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+
+          <div class="char-dropdown" id="workSelectDropdown" role="listbox" aria-label="작품 목록">
+            {% for work in works %}
+            <div class="char-dropdown-item work-option" role="option"
+                 data-work-id="{{ work.work_id }}"
+                 data-title="{{ work.title }}"
+                 data-genre="{{ work.genre }}"
+                 data-synopsis="{% if work.synopsis %}true{% else %}false{% endif %}">
+              <div class="char-di-thumb">{% if work.cover_image_url %}<img class="char-di-img" src="{{ work.cover_image_url }}" alt="{{ work.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="char-di-placeholder"></div>{% endif %}</div>
+              <div class="char-di-info">
+                <p class="char-di-title">{{ work.title }}</p>
+                <p class="char-di-genre">{{ work.genre }}</p>
+              </div>
+            </div>
+            {% empty %}
+            <p style="padding:12px 16px; font-size:13px; color:var(--color-text-muted);">등록된 작품이 없어요.</p>
+            {% endfor %}
+          </div>
+          <span class="work-select-genre" id="workSelectGenre"></span>
+        </div>
+      </div>
+      <button class="extract-btn" id="extractBtn">캐릭터 설정 추출하기 · 300C</button>
+    </div>
+    <!-- 추출 결과 요약 카드 -->
+    <div class="char-panel summary-panel">
+      <h2 class="panel-title">추출된 결과 요약</h2>
+      <p class="panel-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="currentColor" stroke="none"/></svg>
+        AI로 추출한 캐릭터 설정입니다. 의도치 않은 요소가 있을 수 있으니 확인해 주세요.
+      </p>
+      <div class="summary-grid">
+        <div class="summary-stat summary-stat-accent">
+          <span class="summary-label">총 캐릭터</span>
+          <span class="summary-value" id="statTotal">0<small>명</small></span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-label">주연</span>
+          <span class="summary-value" id="statLead">0<small>명</small></span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-label">조연</span>
+          <span class="summary-value" id="statSupport">0<small>명</small></span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-label">단역</span>
+          <span class="summary-value" id="statMinor">0<small>명</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 캐릭터 확인·수정 패널 -->
+  <div class="char-panel table-panel">
+    <div class="table-panel-head">
+      <div>
+        <h2 class="panel-title">캐릭터 확인 · 수정</h2>
+        <p class="panel-desc">추출된 캐릭터 정보를 확인하고 필요시 수정하세요.</p>
+      </div>
+      <button class="char-add-btn" id="addCharacterBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        캐릭터 추가
+      </button>
+    </div>
+    <!-- 빈 상태 (데이터 없을 때) -->
+    <div class="char-empty" id="charEmpty">
+      <div class="char-empty-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <p class="char-empty-title">아직 추출된 캐릭터 설정이 없어요</p>
+      <p class="char-empty-desc">작품을 선택하고 '캐릭터 설정 추출하기'를 눌러주세요.</p>
+    </div>
+    <!-- 표 (작품 선택/추출 시 JS가 동적으로 채움) -->
+    <div class="char-table-wrap" id="charTableWrap" style="display:none;">
+      <div class="char-table-count">총 0명 / 최대 20명</div>
+      <div class="char-table-scroll">
+        <table class="char-table">
+          <thead>
+            <tr>
+              <th>이름</th><th>역할</th><th>나이</th><th>성별</th>
+              <th>외형</th><th>세부설정</th><th>관계요약</th><th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+    <!-- 재추출 확인 모달 -->
+  <div class="char-modal-backdrop" id="reExtractBackdrop"></div>
+  <div class="char-modal" id="reExtractModal" role="dialog" aria-modal="true">
+    <h3 class="char-modal-title">캐릭터 설정을 다시 추출할까요?</h3>
+    <p class="char-modal-desc">다시 추출하면 기존에 추출된 캐릭터 정보가 초기화됩니다.</p>
+    <div class="char-modal-actions">
+      <button class="char-modal-btn cancel" id="reExtractCancel">취소</button>
+      <button class="char-modal-btn confirm" id="reExtractConfirm">다시 추출하기</button>
+    </div>
+  </div>
+
+  <!-- 삭제 확인 모달 -->
+  <div class="char-modal-backdrop" id="deleteBackdrop"></div>
+  <div class="char-modal" id="deleteModal" role="dialog" aria-modal="true">
+    <h3 class="char-modal-title">이 캐릭터를 삭제할까요?</h3>
+    <p class="char-modal-desc">선택한 캐릭터가 삭제되며 복구할 수 없습니다.</p>
+    <div class="char-modal-actions">
+      <button class="char-modal-btn cancel" id="deleteCancel">취소</button>
+      <button class="char-modal-btn confirm" id="deleteConfirm">삭제하기</button>
+    </div>
+  </div>
+  <!-- 알림 토스트 -->
+  <div class="toast-wrap" id="toastWrap"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.CHAR_CONFIG = {
+    csrfToken:  "{{ csrf_token }}",
+    extractUrl: "{% url 'characters:extract' %}",
+    savedUrl:   "{% url 'characters:saved' work_pk=0 %}",  // 0 → 실제 workId 치환
+    saveUrl:    "{% url 'characters:save' work_pk=0 %}",   // 추가/수정/삭제 저장
+  };
+</script>
+<script src="{% static 'js/character_list.js' %}?v=ddportal-20260626-27"></script>
+{% endblock %}

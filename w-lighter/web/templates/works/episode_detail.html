@@ -1,0 +1,97 @@
+{% extends 'layouts/base_app.html' %}
+{% load static %}
+
+{% block title %}번역 보기 | w.LiGHTER{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/episode_detail.css' %}?v=verpanel-fix-20260629-3">
+{% endblock %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-title-group">
+      <h1 class="page-title ep-breadcrumb">
+        <a href="{% url 'works:work_detail' pk=work.work_id %}" class="breadcrumb-work">{{ work.title }}</a>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg);flex-shrink:0;color:var(--color-text)"><path d="M6 9l6 6 6-6"/></svg>
+        <span>{{ ep_num }}화</span>
+      </h1>
+      <p class="page-desc">회차의 원문과 번역본을 함께 확인해 보세요.</p>
+    </div>
+    <div class="header-utils">
+      <a href="/credits/charge" class="credit-chip">{{ request.user.credit|floatformat:"g" }} C</a>
+      <div class="profile-icon" id="profileBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4 0-8 2-8 6v1h16v-1c0-4-4-6-8-6z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="ep-layout">
+
+    <!-- Left: 원문 -->
+    <div class="ep-col">
+      <div class="ep-col-head">
+        <div class="ep-title-row">
+          <span class="ep-label">회차 제목</span>
+          <input class="ep-title-input" type="text" value="{{ episode.title }}" readonly>
+        </div>
+        <p class="ep-source-label">원문</p>
+      </div>
+      <div class="ep-textbox ep-source-box">
+        <div class="ep-textbox-inner ep-source-text">
+          {{ episode.original_text|linebreaksbr }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: 번역본 (FastAPI 연동 전 — 버전 UI만 유지) -->
+    <div class="ep-col">
+      <div class="ep-col-head">
+        <div class="ep-trans-controls">
+          <div class="ep-version-dropdown" id="versionDropdown">
+            <button type="button" class="ep-version-trigger" id="versionTrigger">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+              <span id="versionLabel">버전 선택</span>
+            </button>
+            <div class="ep-version-panel" id="versionPanel">
+              <div class="ep-lang-list">
+                <button type="button" class="ep-lang-opt active" data-lang="en">영어</button>
+                <button type="button" class="ep-lang-opt" data-lang="cn">중국어 (간체)</button>
+                <button type="button" class="ep-lang-opt" data-lang="jp">일본어</button>
+                <button type="button" class="ep-lang-opt" data-lang="th">태국어</button>
+              </div>
+              <div class="ep-version-divider"></div>
+              <div class="ep-version-list" id="versionList">
+                {# TODO: FastAPI translation_results 연동 후 동적 렌더링 #}
+                <p style="padding:12px 16px;color:var(--color-text-muted);font-size:13px;">번역 결과가 없습니다.</p>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="ep-delete-btn">번역 삭제</button>
+        </div>
+      </div>
+      <div class="ep-textbox ep-trans-box">
+        <div class="ep-textbox-inner ep-trans-text" style="color:var(--color-text-muted);">
+          {# TODO: FastAPI translation_results 연동 후 번역 텍스트 표시 #}
+          <p>번역 데이터가 없습니다. 번역하기 버튼을 눌러 번역을 시작해 보세요.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.EP_CONFIG = {
+    listUrl:   "{% url 'works:episode_translations' work_pk=work.work_id episode_pk=episode.episode_id %}",
+    deleteUrl: "{% url 'works:episode_translation_delete' work_pk=work.work_id episode_pk=episode.episode_id %}",
+    csrfToken: "{{ csrf_token }}",
+  };
+</script>
+<script src="{% static 'js/episode_detail.js' %}?v=hide-empty-langs-20260628-1"></script>
+{% endblock %}
